@@ -15,8 +15,11 @@ var responseData = {
   actualBase64: actualBase64
 }
 app.get('/', function(request, response) {
-  //response.sendfile('settings.html');
-  response.end(JSON.stringify(responseData));
+  response.sendfile('settings.html');
+  //response.end(JSON.stringify(responseData));
+})
+app.get('/image', function(request, response){
+  response.sendfile('009.png');
 })
 
 app.listen(app.get('port'), function() {
