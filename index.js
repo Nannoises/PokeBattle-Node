@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/public'))
 var fs = require('fs');
 console.log("fs loaded");
 // read binary data
-var bitmap = fs.readFileSync('006.png');
+var bitmap = fs.readFileSync('./006.png');
 console.log('File loaded.');
 // convert binary data to base64 encoded string
 var actualBase64 = new Buffer(bitmap).toString('base64');
