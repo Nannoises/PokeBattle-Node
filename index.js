@@ -22,7 +22,9 @@ app.get('/', function(request, response) {
 app.get('/image', function(request, response){
   response.sendfile('009.png');
 })
-
+app.get('/imagecount', function(request, response){
+  response.end(JSON.stringify(fs.readdirSync(__dirname + '/blastoise50')));
+})
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
