@@ -19,9 +19,9 @@ app.get('/', function(request, response) {
   var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
   responseText = responseText.replace('ALLYNAMEKEY', request.param('AllyName') || '');
   responseText = responseText.replace('ENEMYNAMEKEY', request.param('EnemyName') || '');
-  if(request.param('FocusAnimate') && request.param > 0))
+  if(request.param('FocusAnimate') && request.param > 0)
     responseText = responseText.replace('FOCUSANIMATEKEY', 'checked="true"');
-  if(request.param('FlickAnimate') && request.param > 0))
+  if(request.param('FlickAnimate') && request.param > 0)
     responseText = responseText.replace('FLICKANIMATEKEY', 'checked="true"');    
   response.end(responseText);
   //response.sendfile('settings.html');
