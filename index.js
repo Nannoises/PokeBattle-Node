@@ -16,7 +16,7 @@ var responseData = {
   actualBase64: actualBase64
 }
 app.get('/', function(request, response) {
-  var responseText = fs.readFileSync('settings.html', {'encoding': 'String'});
+  var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
   responseText = responseText.replace('ALLYNAMEKEY', 'Ally');
   response.end(responseText);
   //response.sendfile('settings.html');
