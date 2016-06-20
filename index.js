@@ -18,7 +18,7 @@ var responseData = {
 app.get('/', function(request, response) {
   var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
   responseText = responseText.replace('ALLYNAMEKEY', request.param('AllyName'));
-  responseText = resposneText.replace('ENEMYNAMEKEY', request.param('EnemyName'))
+  responseText = responseText.replace('ENEMYNAMEKEY', request.param('EnemyName'))
   response.end(responseText);
   //response.sendfile('settings.html');
   //response.end(JSON.stringify(responseData));
