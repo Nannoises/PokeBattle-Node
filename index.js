@@ -16,7 +16,10 @@ var responseData = {
   actualBase64: actualBase64
 }
 app.get('/', function(request, response) {
-  response.sendfile('settings.html');
+  var responseText = fs.readFileSync('settings.html');
+  responseText = responseText.replace('ALLYNAMEKEY', 'Ally');
+  response.end(responseText);
+  //response.sendfile('settings.html');
   //response.end(JSON.stringify(responseData));
 })
 app.get('/image', function(request, response){
