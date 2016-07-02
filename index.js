@@ -60,7 +60,7 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   var transformStream = new TransformStream();
-  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(response);
+  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(transformStream).pipe(response);
   //response.end("Image!");
 })
 
