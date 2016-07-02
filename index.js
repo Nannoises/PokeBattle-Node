@@ -49,15 +49,13 @@ util.inherits(TransformStream, Transform);
 TransformStream.prototype._transform = function(chunk, encoding, callback) {
   console.log('transform before : ' + JSON.stringify(chunk));
  
-  var flipped = gm(chunk).flip().toBuffer('PNG' function(err, buffer){
+  var flipped = gm(chunk.data).flip().toBuffer('PNG' function(err, buffer){
     console.log('flipped: ' + JSON.stringify(flipped));
     console.log('transform after : ' + JSON.stringify(chunk));
   
     this.push(chunk);
     callback();
   });
- 
-  
 };
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
