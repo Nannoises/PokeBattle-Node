@@ -50,9 +50,8 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/formatImage', function(request, response) {
-  webRequest('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', function(error, innerResponse, body){
-    response.writeHead(innerResponse.statusCode, {'Content-Type': 'image/png' });
-    response.end(body, 'binary');
-  });
+  response.writeHead(200, {'Content-Type': 'image/png' });
+  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(response);
   //response.end("Image!");
 })
+
