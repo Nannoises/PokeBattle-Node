@@ -5,7 +5,9 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
-console.log("fs loaded");
+var gm = require('gm').subClass({imageMagick: true});
+var request = require('request');
+//console.log("fs loaded");
 // read binary data
 var bitmap = fs.readFileSync('009.png');
 console.log('File loaded.');
@@ -46,4 +48,7 @@ app.get('/imagecount', function(request, response){
 })
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
+})
+app.get('/formatImage', function(request, response) {
+  response.end("Image!");
 })
