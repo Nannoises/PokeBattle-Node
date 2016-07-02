@@ -49,12 +49,12 @@ util.inherits(TransformStream, Transform);
 TransformStream.prototype._transform = function(chunk, encoding, callback) {
   console.log('transform before : ' + JSON.stringify(chunk));
  
-  if (typeof chunk.originalValue === 'undefined')
-    chunk.originalValue = chunk.value;
-  chunk.value++;
+  var flipped = gm(chunk).flip();
+  
  
   console.log('transform after : ' + JSON.stringify(chunk));
-  this.push(chunk);
+  console.log('flipped: ' + JSON.stringify(flipped));
+  this.push(flipped);
   callback();
 };
 app.get('/formatImage', function(request, response) {
