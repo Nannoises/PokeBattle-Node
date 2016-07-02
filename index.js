@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
-var request = require('request');
+var webRequest = require('request');
 //console.log("fs loaded");
 // read binary data
 var bitmap = fs.readFileSync('009.png');
@@ -50,5 +50,8 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/formatImage', function(request, response) {
-  response.end("Image!");
+  webRequest('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', function(error, innerResponse, body){
+    response.end(body);
+  })
+  //response.end("Image!");
 })
