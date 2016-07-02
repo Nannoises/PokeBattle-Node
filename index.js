@@ -50,9 +50,10 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
   console.log('transform before : ' + JSON.stringify(chunk));
  
   var flipped = gm(chunk).flip().toBuffer('PNG', function(err, buffer){
+    console.log('Inside toBuffer callback. err: ' + err);
     console.log('flipped: ' + JSON.stringify(flipped));
     console.log('transform after : ' + JSON.stringify(chunk));
-  
+    console.log('result:' + JSON.stringify(buffer));
     this.push(chunk);
     callback();
   });
