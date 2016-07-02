@@ -7,6 +7,7 @@ app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
+var util = require('util');
 var webRequest = require('request');
 
 app.get('/', function(request, response) {
@@ -41,14 +42,25 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
-var parser = new Transform();
-parser._transform = function(data, encoding, done) {
-  this.push(data);
-  done();
+var TransformStream = function() {
+  Transform.call(this, {objectMode: true});
+};
+util.inherits(TransformStream, Transform);
+TransformStream.prototype._transform = function(chunk, encoding, callback) {
+  console.log('transform before : ' + JSON.stringify(chunk));
+ 
+  if (typeof chunk.originalValue === 'undefined')
+    chunk.originalValue = chunk.value;
+  chunk.value++;
+ 
+  console.log('transform after : ' + JSON.stringify(chunk));
+  this.push(chunk);
+  callback();
 };
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(parser).pipe(response);
+  var transformStream = new TransformStream();
+  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(response);
   //response.end("Image!");
 })
 
