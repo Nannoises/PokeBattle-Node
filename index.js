@@ -51,7 +51,7 @@ app.listen(app.get('port'), function() {
 })
 app.get('/formatImage', function(request, response) {
   webRequest('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', function(error, innerResponse, body){
-    response.writeHead(200, {'Content-Type': 'image/png' });
+    response.writeHead(innerResponse.statusCode, {'Content-Type': 'image/png' });
     response.end(body, 'binary');
   });
   //response.end("Image!");
