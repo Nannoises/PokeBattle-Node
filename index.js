@@ -51,7 +51,8 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
   var transformer = this;
   var testStream = fs.createReadStream(__dirname + '/blastoise50/frame-001.png');
   var testBuff = fs.readFileSync(__dirname + '/blastoise50/frame-001.png');
-  var flipped = gm(testBuff).flip().toBuffer(function(err, buffer){
+  console.log('testBuff: ' + JSON.stringify(testBuff));
+  var flipped = gm(chunk).flip().toBuffer(function(err, buffer){
     console.log('Inside toBuffer callback. err: ' + err);
     console.log('transform after : ' + JSON.stringify(buffer));
     transformer.push(buffer);
