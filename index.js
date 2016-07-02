@@ -49,7 +49,8 @@ util.inherits(TransformStream, Transform);
 TransformStream.prototype._transform = function(chunk, encoding, callback) {
   console.log('transform before : ' + JSON.stringify(chunk));
  
-  var flipped = gm(chunk, 'Tyrantrumfor_DA_zpse9d7d288.png').toBuffer(function(err, buffer){
+  var testStream = fs.createReadStream('/blastoise50/frame-001.png');
+  var flipped = gm(testStream).toBuffer(function(err, buffer){
     console.log('Inside toBuffer callback. err: ' + err);
     console.log('flipped: ' + JSON.stringify(flipped));
     console.log('transform after : ' + JSON.stringify(chunk));
