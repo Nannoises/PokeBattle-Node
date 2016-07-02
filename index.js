@@ -54,7 +54,7 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
  
   console.log('transform after : ' + JSON.stringify(chunk));
   console.log('flipped: ' + JSON.stringify(flipped));
-  this.push(flipped);
+  this.push(chunk);
   callback();
 };
 app.get('/formatImage', function(request, response) {
