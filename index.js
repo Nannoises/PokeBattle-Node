@@ -55,7 +55,7 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
     console.log('flipped: ' + JSON.stringify(flipped));
     console.log('transform after : ' + JSON.stringify(chunk));
     console.log('result:' + JSON.stringify(buffer));
-    transformer.push(chunk);
+    transformer.push(buffer);
     callback();
   });
 };
