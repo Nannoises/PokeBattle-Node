@@ -6,17 +6,9 @@ app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
+var Transform = require('stream').Transform;
 var webRequest = require('request');
-//console.log("fs loaded");
-// read binary data
-var bitmap = fs.readFileSync('009.png');
-console.log('File loaded.');
-// convert binary data to base64 encoded string
-var actualBase64 = new Buffer(bitmap).toString('base64');
-console.log('Base64 encoded');
-var responseData = { 
-  actualBase64: actualBase64
-}
+
 app.get('/', function(request, response) {
   var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
   responseText = responseText.replace('ALLYNAMEKEY', request.param('AllyName') || '');
@@ -49,9 +41,14 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+var parser = new Transform();
+parser._transform = function(data, encoding, done) {
+  this.push(data);
+  done();
+};
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(response);
+  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(parser).pipe(response);
   //response.end("Image!");
 })
 
