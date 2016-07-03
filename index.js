@@ -49,7 +49,7 @@ app.get('/formatImage', function(request, response) {
     var command = gm(body)
       .dither()
       .colors(64)
-      .out('pebble_colors_64.gif');
+      .out(__dirname + '/pebble_colors_64.gif');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
       stdout.pipe(response);
