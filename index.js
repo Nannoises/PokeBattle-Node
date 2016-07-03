@@ -46,8 +46,8 @@ app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
-    var command = gm(body, input.png)
-      .out('+dither -remap pebble_colors_64.gif');
+    var command = gm(body);
+      //.out('+dither -remap pebble_colors_64.gif');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
       stdout.pipe(response);
