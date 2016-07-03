@@ -42,31 +42,14 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
-var TransformStream = function() {
-  Transform.call(this, {objectMode: true});
-};
-util.inherits(TransformStream, Transform);
-TransformStream.prototype._transform = function(chunk, encoding, callback) {
-  console.log('transform before : ' + JSON.stringify(chunk));
-  var transformer = this;
-  var testStream = fs.createReadStream(__dirname + '/blastoise50/frame-001.png');
-  var testBuff = fs.readFileSync(__dirname + '/blastoise50/frame-001.png');
-  var flipped = gm(testBuff).flip().toBuffer(function(err, buffer){
-    console.log('Inside toBuffer callback. err: ' + err);
-    console.log('transform after : ' + JSON.stringify(buffer));
-    transformer.push(buffer);
-    callback();
-  });
-};
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   var transformStream = new TransformStream();
   webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
   	console.log('recieved body: ' + JSON.stringify(body));
-  	gm(body).flip().stream(function(err, stdout, stderr){
+  	gm(body).colors(64).stream(function(err, stdout, stderr){
   		stdout.pipe(response);
   	});
   });
-  //response.end("Image!");
 })
 
