@@ -47,7 +47,11 @@ app.get('/formatImage', function(request, response) {
   webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
     var command = gm(body)
-      .out('-remap ' + dirname__ + '/pebble_colors_64.gif');
+      .out("-fill '#FFFFFF00' -opaque none")
+      .out('-dither FloydSteinberg')
+      .out('-remap pebble_colors_64.gif')
+      .out('-define png:compression-level=9 -define png:compression-strategy=0')
+      .out('-define png:exclude-chunk=all');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
       stdout.pipe(response);
