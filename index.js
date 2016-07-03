@@ -61,7 +61,12 @@ TransformStream.prototype._transform = function(chunk, encoding, callback) {
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   var transformStream = new TransformStream();
-  webRequest.get('https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png').pipe(transformStream).pipe(response);
+  webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
+  	console.log('recieved body: ' + JSON.stringify(body));
+  	gm(__dirname + '/blastoise50/frame-001.png').flip().stream(function(err, stdout, stderr){
+  		stdout.pipe(response);
+  	});
+  });
   //response.end("Image!");
 })
 
