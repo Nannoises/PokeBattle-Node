@@ -45,12 +45,15 @@ app.listen(app.get('port'), function() {
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
-  	console.log('recieved body: ' + JSON.stringify(body));
-  	var command = gm(body).colors(64).out('pebble_colors_64.gif');
-  	console.log('gm command: ' + JSON.stringify(command));
-  	command.stream(function(err, stdout, stderr){
-  		stdout.pipe(response);
-  	});
+    console.log('recieved body: ' + JSON.stringify(body));
+    var command = gm(body)
+      .dither()
+      .colors(64)
+      .out('pebble_colors_64.gif');
+    console.log('gm command: ' + JSON.stringify(command));
+    command.stream(function(err, stdout, stderr){
+      stdout.pipe(response);
+    });
   });
 })
 
