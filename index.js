@@ -47,10 +47,12 @@ app.get('/formatImage', function(request, response) {
   webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
     var command = gm(body)
-      .command('+dither')
-      .command('-remap pebble_colors_64.gif');
+      .in('+dither -remap pebble_colors_64.gif');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
+      if(err){
+        console.log('err: ' + err);
+      }
       stdout.pipe(response);
     });
   });
