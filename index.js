@@ -5,7 +5,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
-var gm = require('gm').subClass({imageMagick: true});
+var gm = require('gm');//.subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
 var webRequest = require('request');
@@ -48,7 +48,8 @@ app.get('/formatImage', function(request, response) {
     console.log('recieved body: ' + JSON.stringify(body));
     var command = gm(body)
       .resize(96,96)
-      .out('+dither -remap pebble_colors_64.gif');
+      .out('-map pebble_colors_64.gif');
+      //.out('+dither -remap pebble_colors_64.gif');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
       console.log('err: ' + err);
