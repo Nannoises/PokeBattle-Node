@@ -48,7 +48,8 @@ app.get('/formatImage', function(request, response) {
     console.log('recieved body: ' + JSON.stringify(body));
     var command = gm(body)
       .resize(96,96)
-      .in('-map pebble_colors_64.gif');
+      .colors(64);
+      //.in('-map pebble_colors_64.gif');
       //.out('+dither -remap pebble_colors_64.gif');
     console.log('gm command: ' + JSON.stringify(command));
     command.stream(function(err, stdout, stderr){
