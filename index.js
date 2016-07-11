@@ -44,7 +44,7 @@ app.listen(app.get('port'), function() {
 })
 app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get({url: 'http://www.pokestadium.com/sprites/xy-fan/back/talonflame.png', encoding: null}, function(error, innerResponse, body){
+  webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
     var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
