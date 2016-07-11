@@ -47,7 +47,7 @@ app.get('/formatImage', function(request, response) {
   if(!imageUrl){
     response.end("No image URL provided!");
   }
-  var dither = request.param('Dither') || false;
+  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
   response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
