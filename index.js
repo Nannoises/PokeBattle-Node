@@ -43,14 +43,19 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/formatImage', function(request, response) {
+  var imageUrl = request.param('ImageUrl');
+  if(!imageUrl){
+    response.end("No image URL provided!");
+  }
+  var dither = request.param('Dither') || false;
   response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get({url: 'https://s31.postimg.org/zetnmyy8b/Tyrantrumfor_DA_zpse9d7d288.png', encoding: null}, function(error, innerResponse, body){
+  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
     var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
         console.log('width: ' + size.width + ' height: ' + size.height);
         var command = gm(body)
-        .dither(false)
+        .dither(dither)
         .map('pebble_colors_64.gif');
         
         if(size.width > 96 || size.height > 96){
