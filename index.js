@@ -5,7 +5,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
-var gm = require('gm');//.subClass({imageMagick: true});
+var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
 var webRequest = require('request');
