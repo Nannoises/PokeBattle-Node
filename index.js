@@ -60,7 +60,7 @@ app.get('/formatImage', function(request, response) {
           command.dither(false);
         }
         
-        command.transparent("#000000");
+        command.background("#FFFFFF");
         
         command.map('pebble_colors_64.gif');
         
