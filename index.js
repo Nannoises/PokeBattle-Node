@@ -60,10 +60,12 @@ app.get('/formatImage', function(request, response) {
           command.dither(false);
         }
         
+        command.transparent("#000000");
+        
         command.map('pebble_colors_64.gif');
         
         if(size.width > 96 || size.height > 96){
-          //command.resize(96,96);
+          command.resize(96,96);
         }
         
         console.log('gm command: ' + JSON.stringify(command));
