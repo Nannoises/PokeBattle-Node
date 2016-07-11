@@ -67,7 +67,7 @@ app.get('/formatImage', function(request, response) {
         }
         
         console.log('gm command: ' + JSON.stringify(command));
-        command.stream(function(err, stdout, stderr){
+        command.stream('png', function(err, stdout, stderr){
           console.log('err: ' + err);
           stdout.pipe(response);
         });
