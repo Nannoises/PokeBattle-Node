@@ -46,14 +46,21 @@ app.get('/formatImage', function(request, response) {
   response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest.get({url: 'http://www.pokestadium.com/sprites/xy-fan/back/talonflame.png', encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
-    var command = gm(body)
-    .dither(false)
-    .map('pebble_colors_64.gif')
-    .resize(94,94);
-    console.log('gm command: ' + JSON.stringify(command));
-    command.stream(function(err, stdout, stderr){
-      console.log('err: ' + err);
-      stdout.pipe(response);
+    var sizeCheck = gm(body).size(function (err, size) {
+      if (!err){
+        console.log('width: ' + size.width + ' height: ' + size.height);
+        var command = gm(body)
+        .dither(false)
+        .map('pebble_colors_64.gif')
+        .resize(94,94);
+        console.log('gm command: ' + JSON.stringify(command));
+        command.stream(function(err, stdout, stderr){
+          console.log('err: ' + err);
+          stdout.pipe(response);
+        });
+      }
+      else
+        console.log('Error checking size: ' + err);
     });
   });
 })
