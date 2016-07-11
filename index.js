@@ -62,7 +62,7 @@ app.get('/formatImage', function(request, response) {
         
         command.map('pebble_colors_64.gif');
         
-        command.transparent('rgba(0.0,0.0,0.0,0.0)");
+        command.transparent('rgba(0.0,0.0,0.0,0.0)');
         
         if(size.width > 96 || size.height > 96){
           command.resize(96,96);
