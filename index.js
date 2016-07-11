@@ -54,9 +54,13 @@ app.get('/formatImage', function(request, response) {
     var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
         console.log('width: ' + size.width + ' height: ' + size.height);
-        var command = gm(body)
-        .dither(dither)
-        .map('pebble_colors_64.gif');
+        var command = gm(body);
+        
+        if(!dither){
+          command = command.dither(false);
+        }
+        
+        command.map('pebble_colors_64.gif');
         
         if(size.width > 96 || size.height > 96){
           command = command.resize(96,96);
