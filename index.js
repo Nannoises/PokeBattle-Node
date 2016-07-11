@@ -66,8 +66,6 @@ app.get('/formatImage', function(request, response) {
           command.resize(96,96);
         }
         
-        command.transparent('#000000');
-        
         console.log('gm command: ' + JSON.stringify(command));
         command.stream(function(err, stdout, stderr){
           console.log('err: ' + err);
