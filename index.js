@@ -60,8 +60,7 @@ app.get('/formatImage', function(request, response) {
           command.dither(false);
         }
         
-        command.map('pebble_colors_64.gif');
-        
+        command.map('pebble_64_transparent.gif');
         
         if(size.width > 96 || size.height > 96){
           command.resize(96,96);
