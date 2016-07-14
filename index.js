@@ -54,7 +54,11 @@ app.get('/formatImage', function(request, response) {
     var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
         console.log('width: ' + size.width + ' height: ' + size.height);
-        var command = gm(body);
+        var imageName = 'sprite.png';
+        if(imageUrl.endsWith('.gif')){
+          imageName = 'spirte.gif[0]';
+        }
+        var command = gm(body, imageName);
         
         if(!dither){
           command.dither(false);
