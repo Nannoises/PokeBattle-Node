@@ -51,17 +51,17 @@ app.get('/pokemonNames', function(request, response){
       if (!error && response.statusCode == 200) {
         console.log('body ' + body);
         var results = JSON.parse(body).results;
-        /*pokemonNames = {};
+        pokemonNames = {};
         for(var i=0;i<results.length;i++){
           var pokemonName = results[i].name;
           if(pokemonName.indexOf('-') > -1){
-            pokemonName = pokemonName.substrtring(0, pokemonName.indexOf('-'));
+            pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
           }
           if(!(pokemonName in pokemonNames)){
             pokemonNames[pokemonName] = 1;
           }
-        }*/
-        response.end(JSON.stringify(results));
+        }
+        response.end(JSON.stringify(pokemonNames));
       }
     });
   }
