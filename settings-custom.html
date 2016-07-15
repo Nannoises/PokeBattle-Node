@@ -91,5 +91,7 @@
 	// Encode and send the data when the page closes
 	document.location = return_to + encodeURIComponent(JSON.stringify(options));
 	});
+	
+	$.getJSON("http://pokeapi.co/api/v2/pokemon", function(response){ console.log(response); });
   </script>
  </html>
