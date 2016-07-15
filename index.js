@@ -50,12 +50,12 @@ app.get('/getSprites', function(request, response){
   }
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   console.log("Requesting: " + url);
-  webRequest(url).pipe(response);
-  /*webRequest(url, function(error, innerResponse, body){
+  //webRequest(url).pipe(response);
+  webRequest(url, function(error, innerResponse, body){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
-    body.
-  });*/
+    response.end("Body downloaded.");
+  });
 });
 app.get('/pokemonNames', function(request, response){
   if(pokemonNames !== undefined){
