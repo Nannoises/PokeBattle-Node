@@ -70,7 +70,7 @@ app.get('/formatImage', function(request, response) {
           command.resize(96,96);
         }
         
-        command.quality(50);
+        command.quality(10);
         
         console.log('gm command: ' + JSON.stringify(command));
         command.stream('png', function(err, stdout, stderr){
