@@ -43,7 +43,7 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/pokemonNames', function(request, response){
-  webRequest('http://pokeapi.co/api/v2/', function (error, response, body) {
+  webRequest('http://pokeapi.co/api/v2/', function (error, innerResponse, body) {
     if (!error && response.statusCode == 200) {
       response.end(body);
     }
