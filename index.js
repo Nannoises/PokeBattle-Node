@@ -43,6 +43,14 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+app.get('/getSprites', function(request, response){
+  var pokemonName = request.param('Name');
+  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  webRequest(url, function(error, innerResponse, body){
+    request.end(body);
+    
+  });
+});
 app.get('/pokemonNames', function(request, response){
   if(pokemonNames !== undefined){
      response.end(JSON.stringify(pokemonNames));
