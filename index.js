@@ -59,7 +59,7 @@ app.get('/pokemonNames', function(request, response){
             pokemonNames[pokemonName] = 1;
           }
         }
-        response.end(pokemonNames);
+        response.end(JSON.stringify(pokemonNames));
       }
     });
   }
