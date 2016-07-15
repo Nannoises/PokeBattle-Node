@@ -45,10 +45,12 @@ app.listen(app.get('port'), function() {
 })
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+  }
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   webRequest(url, function(error, innerResponse, body){
     request.end(body);
-    
   });
 });
 app.get('/pokemonNames', function(request, response){
