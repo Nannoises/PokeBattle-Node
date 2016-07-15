@@ -44,7 +44,7 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/pokemonNames', function(request, response){
-  if(pokemonName !== undefined){
+  if(pokemonNames !== undefined){
      response.end(JSON.stringify(pokemonNames));
   } else {
     webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
