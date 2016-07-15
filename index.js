@@ -9,6 +9,7 @@ var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
 var webRequest = require('request');
+var pokemonNames = {};
 
 app.get('/', function(request, response) {
   var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
@@ -43,11 +44,25 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/pokemonNames', function(request, response){
-  webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
-    if (!error && response.statusCode == 200) {
-      response.end(body);
-    }
-  });
+  if(pokemonNames && pokemonNames.length > 0){
+    response.end(pokemonNames);
+  } else {
+    webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
+      if (!error && response.statusCode == 200) {
+        var results = JSON.parse(body).results;
+        for(var i=0;i<results.count;i++){
+          var pokemonName = results[i].name;
+          if(pokemonName.indexOf('-') > -1){
+            pokemonName = pokemonName.substrtring(0, pokemonName.indexOf('-'));
+          }
+          if(!(pokemonName in pokemonNames)){
+            pokemonNames[pokemonName] = 1;
+          }
+        }
+        response.end(pokemonNames);
+      }
+    });
+  }
 });
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
