@@ -73,10 +73,17 @@ app.get('/formatImage', function(request, response) {
         //command.quality(50);
         
         console.log('gm command: ' + JSON.stringify(command));
-        command.stream('png', function(err, stdout, stderr){
+        command.toBuffer('PNG',function (err, buffer) {
+         if(err){
+           console.log('err: ' + err);
+         }
+         response.end(buffer);
+        }
+        /*command.stream('png', function(err, stdout, stderr){
           console.log('err: ' + err);
           stdout.pipe(response);
         });
+        */
       }
       else
         console.log('Error checking size: ' + err);
