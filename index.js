@@ -66,7 +66,7 @@ app.get('/getSprites', function(request, response){
   webRequest(url, function(error, innerResponse, body){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
-    response.end("Body downloaded.");
+    response.end(body);
   });
 });
 app.get('/pokemonNames', function(request, response){
