@@ -49,7 +49,10 @@ app.get('/getSprites', function(request, response){
     response.end("No Pokemon name specified!");
   }
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  console.log("Requesting: " + url);
   webRequest(url, function(error, innerResponse, body){
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
     request.end(body);
   });
 });
