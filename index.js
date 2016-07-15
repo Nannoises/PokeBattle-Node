@@ -47,10 +47,10 @@ app.get('/pokemonNames', function(request, response){
   if(pokemonNames !== undefined){
      response.end(JSON.stringify(pokemonNames));
   } else {
-    webRequest('http://pokeapi.co/api/v2/pokemon', function (error, innerResponse, body) {
+    webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
       if (!error && response.statusCode == 200) {
         console.log('body ' + body);
-        var results = body.results;
+        var results = JSON.parse(body).results;
         pokemonNames = {};
         for(var i=0;i<results.length;i++){
           var pokemonName = results[i].name;
