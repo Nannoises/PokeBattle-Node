@@ -8,6 +8,7 @@ var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
+var $ = require('jQuery');
 var webRequest = require('request');
 var pokemonNames = undefined;
 
