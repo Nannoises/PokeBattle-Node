@@ -68,7 +68,8 @@ app.get('/getSprites', function(request, response){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Remove gifs.
-    $('img[src$=".gif"]', body).remove();
+    //$('img[src$=".gif"]', body).remove();
+    $(body).find('img[src$=".gif"]');   
     response.end(body);
   });
 });
