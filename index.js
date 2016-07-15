@@ -45,7 +45,15 @@ app.listen(app.get('port'), function() {
 })
 app.get('/sprites/*', function(request, response){
   var logData = { "originalUrl": request.originalUrl, "url": request.url, "baseUrl": request.baseUrl, "path": request.path, "route": request.route};
-  response.end(JSON.stringify(logData));
+  //response.end(JSON.stringify(logData));
+  var url = "http://www.pokestadium.com";
+  url += request.path;
+  webRequest(url).pipe(response);
+  /*webRequest(url, function(error, innerResponse, body){
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
+    response.end("Body downloaded.");
+  });*/
 });
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
