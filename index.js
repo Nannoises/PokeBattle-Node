@@ -45,7 +45,7 @@ app.listen(app.get('port'), function() {
 })
 app.get('/pokemonNames', function(request, response){
   if(pokemonNames && pokemonNames.length > 0){
-    response.end(pokemonNames);
+     response.end(JSON.stringify(pokemonNames));
   } else {
     webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
       if (!error && response.statusCode == 200) {
