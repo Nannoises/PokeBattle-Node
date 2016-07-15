@@ -44,7 +44,8 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
 app.get('/sprites/*', function(request, response){
-  response.end(request.baseUrl);
+  var logData = { "originalUrl": request.originalUrl, "url": request.url, "baseUrl": request.baseUrl, "path": request.path, "route": request.route};
+  response.end(JSON.stringify(logData));
 });
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
