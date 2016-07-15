@@ -50,8 +50,8 @@ app.get('/pokemonNames', function(request, response){
     webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
       if (!error && response.statusCode == 200) {
         console.log('body ' + body);
-        var results = JSON.parse(body).results;
-        for(var i=0;i<results.count;i++){
+        var results = body.results;
+        for(var i=0;i<results.length;i++){
           var pokemonName = results[i].name;
           if(pokemonName.indexOf('-') > -1){
             pokemonName = pokemonName.substrtring(0, pokemonName.indexOf('-'));
