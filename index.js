@@ -8,7 +8,6 @@ var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
-var $ = require('jQuery');
 var webRequest = require('request');
 var pokemonNames = undefined;
 
@@ -68,8 +67,7 @@ app.get('/getSprites', function(request, response){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Remove gifs.
-    //$('img[src$=".gif"]', body).remove();
-    $(body).find('img[src$=".gif"]');   
+
     response.end(body);
   });
 });
