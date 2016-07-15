@@ -42,6 +42,13 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+app.get('/pokemonNames', function(request, response){
+  webRequest('http://pokeapi.co/api/v2/', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      response.end(body);
+    }
+  });
+});
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
   if(!imageUrl){
