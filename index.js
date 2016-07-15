@@ -78,7 +78,7 @@ app.get('/formatImage', function(request, response) {
            console.log('err: ' + err);
          }
          response.end(buffer);
-        }
+        });
         /*command.stream('png', function(err, stdout, stderr){
           console.log('err: ' + err);
           stdout.pipe(response);
