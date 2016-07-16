@@ -88,7 +88,6 @@ app.get('/getMostRecentFrontSprite', function(request, response){
         break;
       }
     }
-    var path = matches[0];
     var imageUrl = "http://www.pokestadium.com" + path;
     webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
       response.writeHead(200, {'Content-Type': 'image/png' });
