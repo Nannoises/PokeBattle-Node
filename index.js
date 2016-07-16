@@ -61,6 +61,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     response.end("No Pokemon name specified!");
     return;
   }
+  pokemonName = pokemonName.toLowerCase();
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   console.log("Requesting: " + url);
   //webRequest(url).pipe(response);
