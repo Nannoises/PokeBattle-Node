@@ -54,19 +54,13 @@ var getAndFormatImage = function(imageUrl, request, response){
           imageName = 'spirte.gif[0]';
         }
         var command = gm(body, imageName);
-        
         if(!dither){
           command.dither(false);
         }
-        
         command.map('pebble_64_transparent.gif');
-        
         if(size.width > 96 || size.height > 96){
           command.resize(96,96);
         }
-        
-        //command.quality(50);
-        
         console.log('gm command: ' + JSON.stringify(command));
         command.toBuffer('PNG',function (err, buffer) {
          if(err){
@@ -87,11 +81,6 @@ app.get('/sprites/*', function(request, response){
   var url = "http://www.pokestadium.com";
   url += request.path;
   webRequest(url).pipe(response);
-  /*webRequest(url, function(error, innerResponse, body){
-    console.log("InnerResponse: " + innerResponse);
-    console.log("Body:" + body);
-    response.end("Body downloaded."); 
-  });*/
 });
 app.get('/getMostRecentBackSprite', function(request, response){
   var pokemonName = request.param('Name');
@@ -175,7 +164,7 @@ app.get('/getMostRecentFrontSpriteShiny', function(request, response){
     });
   });
 });
-app.get('/getMostRecentFrontSprite', function(request, response){
+var getMostRecentSprite = function(regex, request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
     response.end("No Pokemon name specified!");
@@ -193,7 +182,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Get most recent front sprite
-    var matches = body.match(/\/sprites[^\.]*?\.png/g);
+    var matches = body.match(regex);
     if(!matches || matches.length < 1){
       response.end("No sprites found in response: " + body);
       return;
@@ -212,6 +201,9 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     var imageUrl = "http://www.pokestadium.com" + path;
     getAndFormatImage(imageUrl, request, response);
   });
+};
+app.get('/getMostRecentFrontSprite', function(request, response){
+  getMostRecentSprite(/\/sprites[^\.]*?\.png/g, request, response);
 });
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
