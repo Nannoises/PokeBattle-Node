@@ -83,6 +83,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
       || matches[i].indexOf(pokemonName + "-mega.png") > -1
       || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
       || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
+        console.log("Match found: " + matches[i]);
         path = matches[i];
         break;
       }
