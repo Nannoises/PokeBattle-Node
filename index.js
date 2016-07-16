@@ -52,8 +52,28 @@ app.get('/sprites/*', function(request, response){
   /*webRequest(url, function(error, innerResponse, body){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
-    response.end("Body downloaded.");
+    response.end("Body downloaded."); 
   });*/
+});
+app.get('/getMostRecentFrontSprite', function(request, response){
+  var pokemonName = request.param('Name');
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+  }
+  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  console.log("Requesting: " + url);
+  //webRequest(url).pipe(response);
+  response.writeHead(200, {'Content-Type': 'image/png' });
+  webRequest(url, function(error, innerResponse, body){
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
+    //Get most recent front sprite
+    var path = body.match(/\/sprites[^\.]*?\.png/g)[0];
+    var imageUrl = "http://www.pokestadium.com" + path;
+    webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+      response.end(body);
+    });
+  });
 });
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
