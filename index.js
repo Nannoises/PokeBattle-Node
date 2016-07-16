@@ -70,7 +70,7 @@ var formatAndReturnImage = function(imageBuffer, request, response){
         command.toBuffer('PNG',function (err, buffer) {
          if(err){
            console.log('err: ' + err);
-           response.end'err: ' + err);
+           response.end('err: ' + err);
            return;
          }
          response.writeHead(200, {'Content-Type': 'image/png' });
