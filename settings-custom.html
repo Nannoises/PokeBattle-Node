@@ -107,22 +107,17 @@
 	$("#AllyShinySpriteUrl").keyup(function(){
 		$("#AllySpriteShiny").attr("src", $("#AllyShinySpriteUrl").val());
 	});
-	$("#EnemySpriteUrl").change(function(){
+	$("#EnemySpriteUrl").on('change','keyup', function(){
 		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
-	});
-	$("#EnemySpriteUrl").keyup(function(){
-		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
-	});
-	$("#pokeSearch").keyup(function(){
-		$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
 	});
 	$("#pokeSearch").on('change', 'keyup', function(){
 		if($("#pokeSearch").val() !== ""){ //Todo filter by pokemonNames.
 			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
 		}
 	});
-	$("#sprites img").on('click', function(){
+	$("#sprites").on("click", "img", function(){
 		console.log(this);
+		
 	});
 	
 	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
