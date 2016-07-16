@@ -17,7 +17,7 @@
 	  <fieldset class="form-group">
 		<label for="AllySpriteUrl">Ally Sprite URL</label>
 		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllySpriteUrl" name="AllySpriteUrl" value="ALLYSPRITEURLKEY" placeholder="Ally Pokemon Sprite URL">    
-		<img id="AllySprite" src="ALLYSPRITEURLKEY"/>
+		<img id="AllySprite" src="ALLYSPRITEURLKEY" alt=""/>
 	  </fieldset>
 	  <fieldset class="form-group">
 		<label for="AllyShinySpriteUrl">Ally Shiny Sprite URL</label>
@@ -95,7 +95,7 @@
 	// Encode and send the data when the page closes
 	document.location = return_to + encodeURIComponent(JSON.stringify(options));
 	});
-	$("#AllySpriteUrl").change(function(){
+	$("#AllySpriteUrl").on("keyup", "change", function(){
 		$("#AllySprite").attr("src", $("#AllySpriteUrl").val());
 	});
 	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
