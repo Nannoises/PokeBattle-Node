@@ -217,8 +217,10 @@ app.get('/pokemonNames', function(request, response){
     });
   }
 });
-var formatImage = function(request, resposne, body){
-  var sizeCheck = gm(body).size(function (err, size) {
+var getAndformatImage = function(imageUrl, request, response){
+  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+    var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+    var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
         console.log('width: ' + size.width + ' height: ' + size.height);
         var imageName = 'sprite.png';
@@ -244,13 +246,9 @@ var formatImage = function(request, resposne, body){
          if(err){
            console.log('err: ' + err);
          }
+         response.writeHead(200, {'Content-Type': 'image/png' });
          response.end(buffer);
         });
-        /*command.stream('png', function(err, stdout, stderr){
-          console.log('err: ' + err);
-          stdout.pipe(response);
-        });
-        */
       }
       else
         console.log('Error checking size: ' + err);
@@ -261,10 +259,5 @@ app.get('/formatImage', function(request, response) {
   if(!imageUrl){
     response.end("No image URL provided!");
   }
-  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-  response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-    console.log('recieved body: ' + JSON.stringify(body));
-    formatImage(request, response, body);
-  });
+  getAndFormatImage(imageUrl, request, response);
 })
