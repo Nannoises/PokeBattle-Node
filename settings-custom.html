@@ -107,10 +107,10 @@
 	$("#AllyShinySpriteUrl").keyup(function(){
 		$("#AllySpriteShiny").attr("src", $("#AllyShinySpriteUrl").val());
 	});
-	$("#EnemySpriteUrl").on('change','keyup', function(){
+	$("#EnemySpriteUrl").on('change, keyup', function(){
 		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
 	});
-	$("#pokeSearch").on('change', 'keyup', function(){
+	$("#pokeSearch").on('change, keyup', function(){
 		if($("#pokeSearch").val() !== ""){ //Todo filter by pokemonNames.
 			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
 		}
