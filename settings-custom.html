@@ -113,6 +113,15 @@
 	$("#EnemySpriteUrl").keyup(function(){
 		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
 	});
+	$("#pokeSearch").keyup(function(){
+		$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
+	});
+	$("#pokeSearch").change(function(){
+		$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
+	});
+	$("#sprites img").live(function(){
+		console.log(this);
+	});
 	
 	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
   </script>
