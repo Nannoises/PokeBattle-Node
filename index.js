@@ -25,11 +25,11 @@ app.get('/', function(request, response) {
 })
 app.get('/custom', function(request, response) {
   var responseText = fs.readFileSync('settings-custom.html', {'encoding': "utf8"});
-  responseText = responseText.replace('ALLYNAMEKEY', request.param('AllyName') || '');
-  responseText = responseText.replace('ENEMYNAMEKEY', request.param('EnemyName') || '');
-  responseText = responseText.replace('ALLYSPRITEURLKEY', request.param('AllySpriteUrl') || '');
-  responseText = responseText.replace('ALLYSHINYSPRITEURLKEY', request.param('AllyShinySpriteUrl') || '');
-  responseText = responseText.replace('ENEMYSPRITEURLKEY', request.param('EnemySpriteUrl') || '');
+  responseText = responseText.replace(/ALLYNAMEKEY/g, request.param('AllyName') || '');
+  responseText = responseText.replace(/ENEMYNAMEKEY/g, request.param('EnemyName') || '');
+  responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
+  responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
+  responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
   response.end(responseText);
   //response.sendfile('settings.html');
   //response.end(JSON.stringify(responseData));
