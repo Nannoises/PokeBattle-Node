@@ -76,7 +76,17 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     if(!matches || matches.length < 1){
       response.end("No sprites found in response: " + body);
       return;
-    } 
+    }
+    var path = "";
+    for(var i=0;i<matches.length;i++){
+      if(matches[i].indexOf(pokemonName + ".png") > -1 
+      || matches[i].indexOf(pokemonName + "-mega.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
+        path = matches[i];
+        break;
+      }
+    }
     var path = matches[0];
     var imageUrl = "http://www.pokestadium.com" + path;
     webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
