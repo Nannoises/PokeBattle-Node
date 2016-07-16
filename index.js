@@ -73,7 +73,12 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Get most recent front sprite
-    var path = body.match(/\/sprites[^\.]*?\.png/g)[0];
+    var matches = body.match(/\/sprites[^\.]*?\.png/g);
+    if(!matches || matches.length < 1){
+      response.end("No sprites found in response: " + body);
+      return;
+    } 
+    var path = matches[0];
     var imageUrl = "http://www.pokestadium.com" + path;
     webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
       response.end(body);
