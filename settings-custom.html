@@ -142,7 +142,7 @@
 	});
 	$("#sprites").on("click", "img", function(event){
 		console.log(this);
-		currentSprite = $(this).attr('src');
+		currentSprite = "http://birdhelloworld.herokuapp.com" + $(this).attr('src');
 		$("#sprites img").css('border', 'none');
 		$(this).css('border', "solid 2px green");
 	});
