@@ -43,6 +43,44 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+var getAndFormatImage = function(imageUrl, request, response){
+  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+    var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+    var sizeCheck = gm(body).size(function (err, size) {
+      if (!err){
+        console.log('width: ' + size.width + ' height: ' + size.height);
+        var imageName = 'sprite.png';
+        if(imageUrl.endsWith('.gif')){
+          imageName = 'spirte.gif[0]';
+        }
+        var command = gm(body, imageName);
+        
+        if(!dither){
+          command.dither(false);
+        }
+        
+        command.map('pebble_64_transparent.gif');
+        
+        if(size.width > 96 || size.height > 96){
+          command.resize(96,96);
+        }
+        
+        //command.quality(50);
+        
+        console.log('gm command: ' + JSON.stringify(command));
+        command.toBuffer('PNG',function (err, buffer) {
+         if(err){
+           console.log('err: ' + err);
+         }
+         response.writeHead(200, {'Content-Type': 'image/png' });
+         response.end(buffer);
+        });
+      }
+      else
+        console.log('Error checking size: ' + err);
+    });
+  });
+};
 app.get('/sprites/*', function(request, response){
   var logData = { "originalUrl": request.originalUrl, "url": request.url, "baseUrl": request.baseUrl, "path": request.path, "route": request.route};
   //response.end(JSON.stringify(logData));
@@ -172,10 +210,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
       }
     }
     var imageUrl = "http://www.pokestadium.com" + path;
-    webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-      response.writeHead(200, {'Content-Type': 'image/png' });
-      response.end(body);
-    });
+    getAndFormatImage(imageUrl, request, response);
   });
 });
 app.get('/getSprites', function(request, response){
@@ -217,44 +252,7 @@ app.get('/pokemonNames', function(request, response){
     });
   }
 });
-var getAndFormatImage = function(imageUrl, request, response){
-  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-    var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-    var sizeCheck = gm(body).size(function (err, size) {
-      if (!err){
-        console.log('width: ' + size.width + ' height: ' + size.height);
-        var imageName = 'sprite.png';
-        if(imageUrl.endsWith('.gif')){
-          imageName = 'spirte.gif[0]';
-        }
-        var command = gm(body, imageName);
-        
-        if(!dither){
-          command.dither(false);
-        }
-        
-        command.map('pebble_64_transparent.gif');
-        
-        if(size.width > 96 || size.height > 96){
-          command.resize(96,96);
-        }
-        
-        //command.quality(50);
-        
-        console.log('gm command: ' + JSON.stringify(command));
-        command.toBuffer('PNG',function (err, buffer) {
-         if(err){
-           console.log('err: ' + err);
-         }
-         response.writeHead(200, {'Content-Type': 'image/png' });
-         response.end(buffer);
-        });
-      }
-      else
-        console.log('Error checking size: ' + err);
-    });
-  });
-};
+
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
   if(!imageUrl){
