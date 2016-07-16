@@ -253,6 +253,7 @@ var getAndformatImage = function(imageUrl, request, response){
       else
         console.log('Error checking size: ' + err);
     });
+  });
 };
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
