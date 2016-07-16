@@ -64,7 +64,6 @@ app.get('/getMostRecentFrontSprite', function(request, response){
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   console.log("Requesting: " + url);
   //webRequest(url).pipe(response);
-  response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest(url, function(error, innerResponse, body){
     if(error){
       response.end("Unable to find sprites for provided name. Err: " + error);
@@ -81,6 +80,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
     var path = matches[0];
     var imageUrl = "http://www.pokestadium.com" + path;
     webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+      response.writeHead(200, {'Content-Type': 'image/png' });
       response.end(body);
     });
   });
