@@ -65,6 +65,9 @@ app.get('/getMostRecentFrontSprite', function(request, response){
   //webRequest(url).pipe(response);
   response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest(url, function(error, innerResponse, body){
+    if(error){
+      response.end("Unable to find sprites for provided name. Err: " + error);
+    }
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Get most recent front sprite
