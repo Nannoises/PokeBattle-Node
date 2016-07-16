@@ -59,6 +59,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
     response.end("No Pokemon name specified!");
+    return;
   }
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   console.log("Requesting: " + url);
@@ -67,6 +68,7 @@ app.get('/getMostRecentFrontSprite', function(request, response){
   webRequest(url, function(error, innerResponse, body){
     if(error){
       response.end("Unable to find sprites for provided name. Err: " + error);
+      return;
     }
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
