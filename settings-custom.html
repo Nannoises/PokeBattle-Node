@@ -17,6 +17,7 @@
 	  <fieldset class="form-group">
 		<label for="AllySpriteUrl">Ally Sprite URL</label>
 		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllySpriteUrl" name="AllySpriteUrl" value="ALLYSPRITEURLKEY" placeholder="Ally Pokemon Sprite URL">    
+		<button id="chooseAllySpriteButton" value="Pick Sprite"/>
 		<img id="AllySprite" src="ALLYSPRITEURLKEY" alt=""/>
 	  </fieldset>
 	  <fieldset class="form-group">
@@ -115,9 +116,12 @@
 			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
 		}
 	});
-	$("#sprites").on("click", "img", function(){
+	var currentSprite = "";
+	$("#chooseAllySpriteButton").click(function(event){
+		currentSprite = $(this).attr('id');	
+	});
+	$("#sprites").on("click", "img", function(event){
 		console.log(this);
-		
 	});
 	
 	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
