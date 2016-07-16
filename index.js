@@ -55,6 +55,47 @@ app.get('/sprites/*', function(request, response){
     response.end("Body downloaded."); 
   });*/
 });
+app.get('/getMostRecentBackSprite', function(request, response){
+  var pokemonName = request.param('Name');
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+    return;
+  }
+  pokemonName = pokemonName.toLowerCase();
+  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  console.log("Requesting: " + url);
+  //webRequest(url).pipe(response);
+  webRequest(url, function(error, innerResponse, body){
+    if(error){
+      response.end("Unable to find sprites for provided name. Err: " + error);
+      return;
+    }
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
+    //Get most recent front sprite
+    var matches = body.match(/\/sprites[^\.]*?\/back\/[^\.]*?\.png/g);
+    if(!matches || matches.length < 1){
+      response.end("No sprites found in response: " + body);
+      return;
+    }
+    var path = "";
+    for(var i=0;i<matches.length;i++){
+      if(matches[i].indexOf(pokemonName + ".png") > -1 
+      || matches[i].indexOf(pokemonName + "-mega.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
+        console.log("Match found: " + matches[i]);
+        path = matches[i];
+        break;
+      }
+    }
+    var imageUrl = "http://www.pokestadium.com" + path;
+    webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+      response.writeHead(200, {'Content-Type': 'image/png' });
+      response.end(body);
+    });
+  });
+});
 app.get('/getMostRecentFrontSpriteShiny', function(request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
