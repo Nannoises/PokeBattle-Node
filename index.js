@@ -43,46 +43,6 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
-var formatAndReturnImage = function(imageBuffer, request, response){
-  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-  var sizeCheck = gm(imageBuffer).size(function (err, size) {
-      if (!err){
-        console.log('width: ' + size.width + ' height: ' + size.height);
-        var imageName = 'sprite.png';
-        if(imageUrl.endsWith('.gif')){
-          imageName = 'spirte.gif[0]';
-        }
-        var command = gm(imageBuffer, imageName);
-        
-        if(!dither){
-          command.dither(false);
-        }
-        
-        command.map('pebble_64_transparent.gif');
-        
-        if(size.width > 96 || size.height > 96){
-          command.resize(96,96);
-        }
-        
-        //command.quality(50);
-        
-        console.log('gm command: ' + JSON.stringify(command));
-        command.toBuffer('PNG',function (err, buffer) {
-         if(err){
-           console.log('err: ' + err);
-           response.end('err: ' + err);
-           return;
-         }
-         response.writeHead(200, {'Content-Type': 'image/png' });
-         response.end(buffer);
-        });
-      }
-      else{
-        console.log('Error checking size: ' + err);
-        response.end("Error checking image size.");
-      }
-    });
-};
 app.get('/sprites/*', function(request, response){
   var logData = { "originalUrl": request.originalUrl, "url": request.url, "baseUrl": request.baseUrl, "path": request.path, "route": request.route};
   //response.end(JSON.stringify(logData));
@@ -95,7 +55,7 @@ app.get('/sprites/*', function(request, response){
     response.end("Body downloaded."); 
   });*/
 });
-var getSpriteByRegex = function(request, response, regex){
+app.get('/getMostRecentBackSprite', function(request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
     response.end("No Pokemon name specified!");
@@ -113,7 +73,7 @@ var getSpriteByRegex = function(request, response, regex){
     console.log("InnerResponse: " + innerResponse);
     console.log("Body:" + body);
     //Get most recent front sprite
-    var matches = body.match(regex);
+    var matches = body.match(/\/sprites[^\.]*?\/back\/[^\.]*?\.png/g);
     if(!matches || matches.length < 1){
       response.end("No sprites found in response: " + body);
       return;
@@ -131,18 +91,92 @@ var getSpriteByRegex = function(request, response, regex){
     }
     var imageUrl = "http://www.pokestadium.com" + path;
     webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-      formatAndReturnImage(body, request, response);
+      response.writeHead(200, {'Content-Type': 'image/png' });
+      response.end(body);
     });
   });
-};
-app.get('/getMostRecentBackSprite', function(request, response){
-  getSpriteByRegex(request, response, /\/sprites[^\.]*?\/back\/[^\.]*?\.png/g );
 });
 app.get('/getMostRecentFrontSpriteShiny', function(request, response){
- getSpriteByRegex(request, response, /\/sprites[^\.]*?\/shiny\/[^\.]*?\.png/g );
+  var pokemonName = request.param('Name');
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+    return;
+  }
+  pokemonName = pokemonName.toLowerCase();
+  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  console.log("Requesting: " + url);
+  //webRequest(url).pipe(response);
+  webRequest(url, function(error, innerResponse, body){
+    if(error){
+      response.end("Unable to find sprites for provided name. Err: " + error);
+      return;
+    }
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
+    //Get most recent front sprite
+    var matches = body.match(/\/sprites[^\.]*?\/shiny\/[^\.]*?\.png/g);
+    if(!matches || matches.length < 1){
+      response.end("No sprites found in response: " + body);
+      return;
+    }
+    var path = "";
+    for(var i=0;i<matches.length;i++){
+      if(matches[i].indexOf(pokemonName + ".png") > -1 
+      || matches[i].indexOf(pokemonName + "-mega.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
+        console.log("Match found: " + matches[i]);
+        path = matches[i];
+        break;
+      }
+    }
+    var imageUrl = "http://www.pokestadium.com" + path;
+    webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+      response.writeHead(200, {'Content-Type': 'image/png' });
+      response.end(body);
+    });
+  });
 });
 app.get('/getMostRecentFrontSprite', function(request, response){
- getSpriteByRegex(request, response, /\/sprites[^\.]*?\.png/g );
+  var pokemonName = request.param('Name');
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+    return;
+  }
+  pokemonName = pokemonName.toLowerCase();
+  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
+  console.log("Requesting: " + url);
+  //webRequest(url).pipe(response);
+  webRequest(url, function(error, innerResponse, body){
+    if(error){
+      response.end("Unable to find sprites for provided name. Err: " + error);
+      return;
+    }
+    console.log("InnerResponse: " + innerResponse);
+    console.log("Body:" + body);
+    //Get most recent front sprite
+    var matches = body.match(/\/sprites[^\.]*?\.png/g);
+    if(!matches || matches.length < 1){
+      response.end("No sprites found in response: " + body);
+      return;
+    }
+    var path = "";
+    for(var i=0;i<matches.length;i++){
+      if(matches[i].indexOf(pokemonName + ".png") > -1 
+      || matches[i].indexOf(pokemonName + "-mega.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
+      || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
+        console.log("Match found: " + matches[i]);
+        path = matches[i];
+        break;
+      }
+    }
+    var imageUrl = "http://www.pokestadium.com" + path;
+    webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+      response.writeHead(200, {'Content-Type': 'image/png' });
+      response.end(body);
+    });
+  });
 });
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
@@ -188,10 +222,46 @@ app.get('/formatImage', function(request, response) {
   if(!imageUrl){
     response.end("No image URL provided!");
   }
-
+  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+  response.writeHead(200, {'Content-Type': 'image/png' });
   webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     console.log('recieved body: ' + JSON.stringify(body));
-    formatAndReturnImage(body, request, response);
+    var sizeCheck = gm(body).size(function (err, size) {
+      if (!err){
+        console.log('width: ' + size.width + ' height: ' + size.height);
+        var imageName = 'sprite.png';
+        if(imageUrl.endsWith('.gif')){
+          imageName = 'spirte.gif[0]';
+        }
+        var command = gm(body, imageName);
+        
+        if(!dither){
+          command.dither(false);
+        }
+        
+        command.map('pebble_64_transparent.gif');
+        
+        if(size.width > 96 || size.height > 96){
+          command.resize(96,96);
+        }
+        
+        //command.quality(50);
+        
+        console.log('gm command: ' + JSON.stringify(command));
+        command.toBuffer('PNG',function (err, buffer) {
+         if(err){
+           console.log('err: ' + err);
+         }
+         response.end(buffer);
+        });
+        /*command.stream('png', function(err, stdout, stderr){
+          console.log('err: ' + err);
+          stdout.pipe(response);
+        });
+        */
+      }
+      else
+        console.log('Error checking size: ' + err);
+    });
   });
 })
-
