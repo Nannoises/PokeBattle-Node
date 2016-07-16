@@ -217,7 +217,7 @@ app.get('/pokemonNames', function(request, response){
     });
   }
 });
-var getAndformatImage = function(imageUrl, request, response){
+var getAndFormatImage = function(imageUrl, request, response){
   webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
     var sizeCheck = gm(body).size(function (err, size) {
