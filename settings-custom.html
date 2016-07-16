@@ -17,15 +17,17 @@
 	  <fieldset class="form-group">
 		<label for="AllySpriteUrl">Ally Sprite URL</label>
 		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllySpriteUrl" name="AllySpriteUrl" value="ALLYSPRITEURLKEY" placeholder="Ally Pokemon Sprite URL">    
-		<img src="ALLYSPRITEURLKEY"/>
+		<img id="AllySprite" src="ALLYSPRITEURLKEY"/>
 	  </fieldset>
 	  <fieldset class="form-group">
 		<label for="AllyShinySpriteUrl">Ally Shiny Sprite URL</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyShinySpriteUrl" name="AllyShinySpriteUrl" value="ALLYSHINYSPRITEURLKEY" placeholder="Ally Pokemon Shiny Sprite URL">    
+		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyShinySpriteUrl" name="AllyShinySpriteUrl" value="ALLYSHINYSPRITEURLKEY" placeholder="Ally Pokemon Shiny Sprite URL">
+		<img src="ALLYSHINYSPRITEURLKEY"/>
 	  </fieldset>	 
 	  <fieldset class="form-group">
 		<label for="EnemySpriteUrl">Enemy Sprite URL</label>
 		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="EnemySpriteUrl" name="EnemySpriteUrl" value="ENEMYSPRITEURLKEY" placeholder="Enemy Pokemon Sprite URL">    
+		<img src="ENEMYSPRITEURLKEY"/>
 	  </fieldset>	  
 	  <input id='submit_button' type='button' value='Save'>
 	</form>
@@ -93,7 +95,9 @@
 	// Encode and send the data when the page closes
 	document.location = return_to + encodeURIComponent(JSON.stringify(options));
 	});
-	
+	$("#AllySpriteUrl").change(function(){
+		$("#AllySprite").attr("src", $("#AllySpriteUrl").val());
+	});
 	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
   </script>
  </html>
