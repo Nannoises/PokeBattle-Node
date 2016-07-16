@@ -217,16 +217,8 @@ app.get('/pokemonNames', function(request, response){
     });
   }
 });
-app.get('/formatImage', function(request, response) {
-  var imageUrl = request.param('ImageUrl');
-  if(!imageUrl){
-    response.end("No image URL provided!");
-  }
-  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-  response.writeHead(200, {'Content-Type': 'image/png' });
-  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-    console.log('recieved body: ' + JSON.stringify(body));
-    var sizeCheck = gm(body).size(function (err, size) {
+var formatImage = function(request, resposne, body){
+  var sizeCheck = gm(body).size(function (err, size) {
       if (!err){
         console.log('width: ' + size.width + ' height: ' + size.height);
         var imageName = 'sprite.png';
@@ -263,5 +255,16 @@ app.get('/formatImage', function(request, response) {
       else
         console.log('Error checking size: ' + err);
     });
+};
+app.get('/formatImage', function(request, response) {
+  var imageUrl = request.param('ImageUrl');
+  if(!imageUrl){
+    response.end("No image URL provided!");
+  }
+  var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+  response.writeHead(200, {'Content-Type': 'image/png' });
+  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+    console.log('recieved body: ' + JSON.stringify(body));
+    formatImage(request, response, body);
   });
 })
