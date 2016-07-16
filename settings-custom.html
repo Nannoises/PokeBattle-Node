@@ -116,10 +116,12 @@
 	$("#pokeSearch").keyup(function(){
 		$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
 	});
-	$("#pokeSearch").change(function(){
-		$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
+	$("#pokeSearch").on('change', 'keyup', function(){
+		if($("#pokeSearch").val() !== ""){ //Todo filter by pokemonNames.
+			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
+		}
 	});
-	$("#sprites img").live(function(){
+	$("#sprites img").on('click', function(){
 		console.log(this);
 	});
 	
