@@ -120,13 +120,22 @@
 	});
 	var currentSprite = "";
 	$("#setAllySpriteButton").click(function(event){
+		if(currentSprite === "") return;
+		
 		$("#AllySpriteUrl").val(currentSprite);
+		$("#AllySprite").attr('src', currentSprite);
 	});
 	$("#setAllyShinySpriteButton").click(function(event){
+		if(currentSprite === "") return;
+		
 		$("#AllyShinySpriteUrl").val(currentSprite);
+		$("#AllyShinySprite").attr('src', currentSprite);
 	});
 	$("#setEnemySpriteButton").click(function(event){
+		if(currentSprite === "") return;
+		
 		$("#EnemySpriteUrl").val(currentSprite);
+		$("#EnemySprite").attr('src', currentSprite);
 	});
 	$("#sprites").on("click", "img", function(event){
 		console.log(this);
