@@ -186,7 +186,12 @@ var retrieveNames = function(callback){
               pokemonName = pokemonName.replace('-m','♂');  
             } else if (pokemonName.endsWith('-f')){
               pokemonName = pokemonName.replace('-f','♀');  
-            } else{
+            } else if (pokemonName == 'ho-oh'){
+              pokemonName = pokemonName;
+            } else if (pokemonName == 'farfetchd'){
+              pokemonName = "farfetch'd";
+            }
+            else{
               pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
             }
           }
