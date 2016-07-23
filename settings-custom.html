@@ -153,6 +153,17 @@
 		$(this).css('border', "solid 2px green");
 	});
 	
-	var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
+	//var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
+	var bloodhound = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.whitespace,
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: { 
+			url : "/pokemonNames", 
+			filter: function(response){
+				return Object.keys(response);
+			}
+		}
+	});
+	$("#pokeSearch").typeahead({hint: true, highlight: true}, {name: 'pokemonNames', source: bloodhound, limit: 10} );
   </script>
  </html>
