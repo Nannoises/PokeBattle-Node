@@ -178,8 +178,22 @@ app.get('/pokemonNames', function(request, response){
   if(pokemonNames !== undefined){
      response.end(JSON.stringify(pokemonNames));
   } else {
-    retrieveNames(function(){
-       response.end(JSON.stringify(pokemonNames));
+  webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
+      if (!error && response.statusCode == 200) {
+        console.log('body ' + body);
+        var results = JSON.parse(body).results;
+        pokemonNames = {};
+        for(var i=0;i<results.length;i++){
+          var pokemonName = results[i].name;
+          if(pokemonName.indexOf('-') > -1){
+            pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
+          }
+          if(!(pokemonName in pokemonNames)){
+            pokemonNames[pokemonName] = 1;
+          }
+        }
+        response.end(JSON.stringify(pokemonNames));
+      }
     });
   }
 });
