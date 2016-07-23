@@ -147,11 +147,8 @@ app.get('/getSprites', function(request, response){
     response.end(body);
   });
 });
-app.get('/pokemonNames', function(request, response){
-  if(pokemonNames !== undefined){
-     response.end(JSON.stringify(pokemonNames));
-  } else {
-    webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
+var retrieveNames = function(callback){
+  webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
       if (!error && response.statusCode == 200) {
         console.log('body ' + body);
         var results = JSON.parse(body).results;
@@ -165,8 +162,18 @@ app.get('/pokemonNames', function(request, response){
             pokemonNames[pokemonName] = 1;
           }
         }
-        response.end(JSON.stringify(pokemonNames));
+       if(callback && typeof callback === "function"){
+         callback();
+       }
       }
+    });
+};
+app.get('/pokemonNames', function(request, response){
+  if(pokemonNames !== undefined){
+     response.end(JSON.stringify(pokemonNames));
+  } else {
+    retrieveNames(function(){
+       response.end(JSON.stringify(pokemonNames));
     });
   }
 });
@@ -177,4 +184,6 @@ app.get('/formatImage', function(request, response) {
     response.end("No image URL provided!");
   }
   getAndFormatImage(imageUrl, request, response);
-})
+});
+
+retrieveNames();
