@@ -123,8 +123,9 @@
 		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
 	});
 	$("#pokeSearch").on('change, keyup', function(){
-		if($("#pokeSearch").val() !== ""){ //Todo filter by pokemonNames.
-			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + $("#pokeSearch").val());
+		var value = $("#pokeSearch").val();
+		if(value in bloodhound.index.datums){
+			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + value);
 		}
 	});
 	var currentSprite = "";
@@ -154,11 +155,13 @@
 	});
 	
 	//var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
-	/*var bloodhound = new Bloodhound({
+	var bloodhound = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.whitespace,
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
 		prefetch: '/pokemonNames'
 	});
-	$("#pokeSearch").typeahead({hint: true, highlight: true}, {name: 'pokemonNames', source: bloodhound, limit: 10} );*/
+	$( document ).ready(function() {
+		$("#pokeSearch").typeahead({hint: true, highlight: true}, {name: 'pokemonNames', source: bloodhound, limit: 10} );
+	});
   </script>
  </html>
