@@ -188,12 +188,12 @@ var retrieveNames = function(callback){
               pokemonName = pokemonName.replace('-f','♀');  
             } else if (pokemonName == 'ho-oh'){
               pokemonName = pokemonName;
-            } else if (pokemonName == 'farfetchd'){
-              pokemonName = "farfetch'd";
-            }
-            else{
+            } else{
               pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
             }
+          }
+          if (pokemonName == 'farfetchd'){
+              pokemonName = "farfetch'd";
           }
           if(!(pokemonName in pokemonNames)){
             pokemonNames[pokemonName] = 1;
