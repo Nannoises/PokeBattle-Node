@@ -155,7 +155,7 @@ app.get('/getSprites', function(request, response){
 });
 var retrieveNames = function(callback){
   webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error && innerResponse.statusCode == 200) {
         console.log('body ' + body);
         var results = JSON.parse(body).results;
         pokemonNames = {};
@@ -168,10 +168,10 @@ var retrieveNames = function(callback){
             pokemonNames[pokemonName] = 1;
           }
         }
-       if(callback && typeof callback === "function"){
-         callback();
-       }
       }
+     if(callback && typeof callback === "function"){
+       callback();
+     }      
     });
 };
 app.get('/pokemonNames', function(request, response){
