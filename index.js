@@ -188,8 +188,6 @@ var retrieveNames = function(callback){
               pokemonName = pokemonName.replace('-f','♀');  
             } else if (pokemonName == 'ho-oh'){
               pokemonName = pokemonName;
-            } else if (pokemonName == 'mr-mime'){
-              pokemonName = "mr. mime";
             } else{
               pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
             }
