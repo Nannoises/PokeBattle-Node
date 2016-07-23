@@ -98,10 +98,17 @@ var getMostRecentSprite = function(regex, request, response){
     return;
   }
   pokemonName = pokemonName.toLowerCase();
-  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
-  console.log("Requesting: " + url);
-  //webRequest(url).pipe(response);
-  webRequest(url, function(error, innerResponse, body){
+  var requestParams = {
+    url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
+    method: "GET",
+    qs : {
+      "search-query" : pokemonName,
+      "mode" : "main-series",
+      "background-color" : "transparent"
+    }
+  };
+  console.log("Making request: " + JSON.stringify(requestParams));
+  webRequest(requestParams, function(error, innerResponse, body){
     if(error){
       response.end("Unable to find sprites for provided name. Err: " + error);
       return;
@@ -115,6 +122,7 @@ var getMostRecentSprite = function(regex, request, response){
       return;
     }
     var path = "";
+    var fileNameRegex = new RegExp(pokemonName)
     for(var i=0;i<matches.length;i++){
       if(matches[i].indexOf(pokemonName + ".png") > -1 
       || matches[i].indexOf(pokemonName + "-mega.png") > -1
@@ -123,6 +131,9 @@ var getMostRecentSprite = function(regex, request, response){
         console.log("Match found: " + matches[i]);
         path = matches[i];
         break;
+      }
+      if(path == ""){
+        path = matches[0];
       }
     }
     var imageUrl = "http://www.pokestadium.com" + path;
@@ -144,8 +155,6 @@ app.get('/getSprites', function(request, response){
   if(!pokemonName){
     response.end("No Pokemon name specified!");
   }
-  var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
-  console.log("Requesting: " + url);
   var requestParams = {
     url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
     method: "GET",
@@ -155,7 +164,7 @@ app.get('/getSprites', function(request, response){
       "background-color" : "transparent"
     }
   };
-  //webRequest(url).pipe(response);
+  console.log("Making request: " + JSON.stringify(requestParams));
   webRequest(requestParams, function(error, innerResponse, body){
     console.log("InnerResponse: " + JSON.stringify(innerResponse));
     console.log("Body:" + body);
