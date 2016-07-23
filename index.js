@@ -87,6 +87,8 @@ var getMostRecentSprite = function(regex, request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
     var index = request.param('Index');
+    console.log('Index: ' + index);
+    console.log('pokemonNames length: ' +  pokemonNames.length);
     if(index && pokemonNames && index <= pokemonNames.length){
       pokemonName = pokemonNames[Index];
     }
