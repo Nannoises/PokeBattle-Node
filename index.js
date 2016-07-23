@@ -148,7 +148,7 @@ app.get('/getSprites', function(request, response){
   console.log("Requesting: " + url);
   //webRequest(url).pipe(response);
   webRequest(url, function(error, innerResponse, body){
-    console.log("InnerResponse: " + innerResponse);
+    console.log("InnerResponse: " + JSON.stringify(innerResponse));
     console.log("Body:" + body);
     //Remove gifs.
     body = body.replace(/<img src="[^>]*?\.gif" [^>]*?>/g, "");
