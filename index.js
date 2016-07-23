@@ -194,6 +194,8 @@ var retrieveNames = function(callback){
           }
           if (pokemonName == 'farfetchd'){
               pokemonName = "farfetch'd";
+          } else if (pokemonName == 'mr-mime'){
+              pokemonName = "mr. mime";
           }
           if(!(pokemonName in pokemonNames)){
             pokemonNames[pokemonName] = 1;
