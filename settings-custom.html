@@ -157,12 +157,7 @@
 	var bloodhound = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.whitespace,
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		prefetch: { 
-			url : "/pokemonNames", 
-			filter: function(response){
-				return Object.keys(response);
-			}
-		}
+		prefetch: '/pokemonNames'
 	});
 	$("#pokeSearch").typeahead({hint: true, highlight: true}, {name: 'pokemonNames', source: bloodhound, limit: 10} );
   </script>
