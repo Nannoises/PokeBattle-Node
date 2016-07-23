@@ -88,9 +88,9 @@ var getMostRecentSprite = function(regex, request, response){
   if(!pokemonName){
     var index = request.param('Index');
     console.log('Index: ' + index);
-    console.log('pokemonNames count: ' +  Object.keys(pokemonNames).length);
-    if(index && pokemonNames && index <=  Object.keys(pokemonNames).length){
-      pokemonName =  Object.keys(pokemonNames)[index];
+    console.log('pokemonNames count: ' + pokemonNames.length);
+    if(index && pokemonNames && index <=  pokemonNames.length){
+      pokemonName =  pokemonNames[index];
     }
   }
   if(!pokemonName){
@@ -179,13 +179,7 @@ var retrieveNames = function(callback){
         console.log('body ' + body);
         var results = JSON.parse(body);
         console.log("parsed body: " + JSON.stringify(results));
-        pokemonNames = {};
-        for(var i=0;i<results.length;i++){
-          var pokemonName = results[i];
-          if(!(pokemonName in pokemonNames)){
-            pokemonNames[pokemonName] = 1;
-          }
-        }
+        pokemonNames = results;
       }
      if(callback && typeof callback === "function"){
        callback();
