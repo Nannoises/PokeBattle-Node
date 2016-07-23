@@ -164,9 +164,13 @@ var retrieveNames = function(callback){
         for(var i=0;i<results.length;i++){
           var pokemonName = results[i].name;
           if(pokemonName.indexOf('-') > -1){
-            pokemonName = pokemonName.replace('-m','♂');
-            pokemonName = pokemonName.replace('-f','♀');
-            pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
+            if(pokemonName.endsWith('-m')){
+              pokemonName = pokemonName.replace('-m','♂');  
+            } else if (pokemonName.endsWith('-f')){
+              pokemonName = pokemonName.replace('-f','♀');  
+            } else{
+              pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
+            }
           }
           if(!(pokemonName in pokemonNames)){
             pokemonNames[pokemonName] = 1;
