@@ -174,7 +174,7 @@ app.get('/getSprites', function(request, response){
   });
 });
 var retrieveNames = function(callback){
-  webRequest('http://pokeapi.co/api/v2/pokemon?limit=1000', function (error, innerResponse, body) {
+  webRequest('http://www.pokestadium.com/pokemon-fusions/pokemon-list', function (error, innerResponse, body) {
       if (!error && innerResponse.statusCode == 200) {
         console.log('body ' + body);
         var results = JSON.parse(body).results;
