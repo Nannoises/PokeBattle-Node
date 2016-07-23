@@ -62,7 +62,7 @@ var getAndFormatImage = function(imageUrl, request, response){
           command.resize(96,96);
         }
         console.log('gm command: ' + JSON.stringify(command));
-        command.toBuffer('PNG',function (err, buffer) {
+        command.toBuffer('PNG8',function (err, buffer) {
          if(err){
            console.log('err: ' + err);
          }
