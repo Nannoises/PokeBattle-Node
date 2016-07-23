@@ -146,8 +146,17 @@ app.get('/getSprites', function(request, response){
   }
   var url = "http://www.pokestadium.com/tools/search-pokemon-sprites?search-query=" + pokemonName + "&mode=main-series&background-color=transparent";
   console.log("Requesting: " + url);
+  var requestParams = {
+    url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
+    method: "GET",
+    qs : {
+      "search-query" : pokemonName,
+      "mode" : "main-series",
+      "background-color" : "transparent"
+    }
+  };
   //webRequest(url).pipe(response);
-  webRequest(url, function(error, innerResponse, body){
+  webRequest(requestParams, function(error, innerResponse, body){
     console.log("InnerResponse: " + JSON.stringify(innerResponse));
     console.log("Body:" + body);
     //Remove gifs.
