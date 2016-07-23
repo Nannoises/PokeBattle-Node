@@ -182,20 +182,6 @@ var retrieveNames = function(callback){
         pokemonNames = {};
         for(var i=0;i<results.length;i++){
           var pokemonName = results[i];
-          if(pokemonName.indexOf('-') > -1){
-            if(pokemonName.endsWith('-m')){
-              pokemonName = pokemonName.replace('-m','♂');  
-            } else if (pokemonName.endsWith('-f')){
-              pokemonName = pokemonName.replace('-f','♀');  
-            } else if (pokemonName == 'ho-oh'){
-              pokemonName = pokemonName;
-            } else{
-              pokemonName = pokemonName.substring(0, pokemonName.indexOf('-'));
-            }
-          }
-          if (pokemonName == 'farfetchd'){
-              pokemonName = "farfetch'd";
-          }
           if(!(pokemonName in pokemonNames)){
             pokemonNames[pokemonName] = 1;
           }
