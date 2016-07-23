@@ -181,7 +181,7 @@ var retrieveNames = function(callback){
         console.log("parsed body: " + JSON.stringify(results));
         pokemonNames = {};
         for(var i=0;i<results.length;i++){
-          var pokemonName = results[i].name;
+          var pokemonName = results[i];
           if(pokemonName.indexOf('-') > -1){
             if(pokemonName.endsWith('-m')){
               pokemonName = pokemonName.replace('-m','♂');  
