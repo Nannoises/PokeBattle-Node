@@ -86,6 +86,12 @@ app.get('/sprites/*', function(request, response){
 var getMostRecentSprite = function(regex, request, response){
   var pokemonName = request.param('Name');
   if(!pokemonName){
+    var index = request.param('Index');
+    if(index && pokemonNames && index <= pokemonNames.length){
+      pokemonName = pokemonNames[Index];
+    }
+  }
+  if(!pokemonName){
     response.end("No Pokemon name specified!");
     return;
   }
