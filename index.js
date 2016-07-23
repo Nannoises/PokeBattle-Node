@@ -177,7 +177,8 @@ var retrieveNames = function(callback){
   webRequest('http://www.pokestadium.com/pokemon-fusions/pokemon-list', function (error, innerResponse, body) {
       if (!error && innerResponse.statusCode == 200) {
         console.log('body ' + body);
-        var results = JSON.parse(body).results;
+        var results = JSON.parse(body);
+        console.log("parsed body: " + JSON.stringify(results));
         pokemonNames = {};
         for(var i=0;i<results.length;i++){
           var pokemonName = results[i].name;
