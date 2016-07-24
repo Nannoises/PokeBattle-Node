@@ -122,11 +122,14 @@
 	$("#EnemySpriteUrl").on('change, keyup', function(){
 		$("#EnemySprite").attr("src", $("#EnemySpriteUrl").val());
 	});
-	$("#pokeSearch").on('change, keyup', function(){
+	var loadSprites = function(){
 		var value = $("#pokeSearch").val();
 		if(value in bloodhound.index.datums){
-			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + value);
+			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" +  encodeURIComponent(value));
 		}
+	};
+	$("#pokeSearch").on('change, keyup', function(){
+		loadSprites();
 	});
 	var currentSprite = "";
 	$("#setAllySpriteButton").click(function(event){
@@ -163,11 +166,9 @@
 	$( document ).ready(function() {
 		$("#pokeSearch").typeahead({hint: true, highlight: true}, {name: 'pokemonNames', source: bloodhound, limit: 10} );
 		$("#pokeSearch").on('typeahead:selected', function () {
-			var value = $("#pokeSearch").val();
-			if(value in bloodhound.index.datums){
-				$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" + value);
-			}	
+			loadSprites();	
 		});
+		loadSprites();
 	});
   </script>
   <style>
