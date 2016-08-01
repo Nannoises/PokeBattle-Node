@@ -196,6 +196,23 @@ app.get('/pokemonNames', function(request, response){
     retrieveNames(function(){ response.end(JSON.stringify(pokemonNames));});
   }
 });
+app.get('/pokemonName', function(request, response){
+  var pokemonName = 'Name not found.';
+  var index = request.param('Index');
+  if(pokemonNames !== undefined){
+    if(index && index <=  pokemonNames.length){
+        pokemonName =  pokemonNames[index];
+    }
+    response.end(pokemonName);
+  } else {
+    retrieveNames(function(){
+      if(index && index <=  pokemonNames.length){
+          pokemonName =  pokemonNames[index];
+      }
+      response.end(pokemonName);
+    });
+  }
+});
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
   if(!imageUrl){
