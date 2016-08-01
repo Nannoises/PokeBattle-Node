@@ -149,6 +149,9 @@ app.get('/getMostRecentFrontSpriteShiny', function(request, response){
 app.get('/getMostRecentFrontSprite', function(request, response){
   getMostRecentSprite(/\/sprites[^\.]*?\.png/g, request, response);
 });
+app.get('/getMostRecentBackSpriteShiny', function(request, response){
+  getMostRecentSprite(/\/sprites[^\.]*?\/shiny\/[^\.]*?back\/[^\.]*?\.png/g, request, response);
+});
 
 app.get('/getSprites', function(request, response){
   var pokemonName = request.param('Name');
