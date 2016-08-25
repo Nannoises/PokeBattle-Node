@@ -31,8 +31,15 @@ app.get('/custom', function(request, response) {
   responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
   responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
   response.end(responseText);
-  //response.sendfile('settings.html');
-  //response.end(JSON.stringify(responseData));
+})
+app.get('/custom-beta', function(request, response) {
+  var responseText = fs.readFileSync('settings-custom-beta.html', {'encoding': "utf8"});
+  responseText = responseText.replace(/ALLYNAMEKEY/g, request.param('AllyName') || '');
+  responseText = responseText.replace(/ENEMYNAMEKEY/g, request.param('EnemyName') || '');
+  responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
+  responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
+  responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
+  response.end(responseText);
 })
 app.get('/image', function(request, response){
   response.sendfile('009.png');
