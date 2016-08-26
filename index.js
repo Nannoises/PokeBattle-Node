@@ -30,6 +30,9 @@ app.get('/custom', function(request, response) {
   responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
   responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
   responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
+  if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
+    responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
+  }
   response.end(responseText);
 })
 app.get('/custom-beta', function(request, response) {
@@ -39,6 +42,9 @@ app.get('/custom-beta', function(request, response) {
   responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
   responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
   responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
+  if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
+    responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
+  }
   response.end(responseText);
 })
 app.get('/image', function(request, response){
