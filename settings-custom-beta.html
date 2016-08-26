@@ -5,43 +5,52 @@
   </head>
   <body style="background-image: url('http://birdhelloworld.herokuapp.com/20th.jpg')">
 	<form id="settingsForm" style="margin: 10px">
-	  <fieldset class="form-group">
-		<label for="EnemyName">Enemy Name</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="EnemyName" name="EnemyName" value="ENEMYNAMEKEY" placeholder="Enemy Pokemon name" maxlength="10">
+	  <fieldset>
+		<label for="RandomMode">Random Mode</label>
+		<input id="RandomMode" name="RandomMode" type="checkbox" RANDOMMODEKEY/>
+		<span><b>(Shows 2 random Pokemon each hour.)</b></span>
 	  </fieldset>
-	  <fieldset class="form-group">
-		<label for="AllyName">Ally Name</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyName" name="AllyName" value="ALLYNAMEKEY" placeholder="Ally Pokemon name" maxlength="10">    
-	  </fieldset>
-	  <fieldset class="form-group">
-		<label for="AllySpriteUrl">Ally Sprite URL</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllySpriteUrl" name="AllySpriteUrl" value="ALLYSPRITEURLKEY" placeholder="Ally Pokemon Sprite URL">    
-		<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setAllySpriteButton"/>
-		<img style="max-width: 96px; max-height: 96px;" id="AllySprite" src="ALLYSPRITEURLKEY" alt="Click to set selected sprite"/>
-	  </fieldset>
-	  <fieldset class="form-group">
-		<label for="AllyShinySpriteUrl">Ally Shiny Sprite URL</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyShinySpriteUrl" name="AllyShinySpriteUrl" value="ALLYSHINYSPRITEURLKEY" placeholder="Ally Pokemon Shiny Sprite URL">
-		<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setAllyShinySpriteButton"/>
-		<img style="max-width: 96px; max-height: 96px;" id="AllySpriteShiny" src="ALLYSHINYSPRITEURLKEY" alt="Click to set selected sprite"/>
-	  </fieldset>	 
-	  <fieldset class="form-group">
-		<label for="EnemySpriteUrl">Enemy Sprite URL</label>
-		<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="EnemySpriteUrl" name="EnemySpriteUrl" value="ENEMYSPRITEURLKEY" placeholder="Enemy Pokemon Sprite URL">    
-		<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setEnemySpriteButton" />
-		<img style="max-width: 96px; max-height: 96px;" id="EnemySprite" src="ENEMYSPRITEURLKEY" alt="Click to set selected sprite"/>
-	  </fieldset>	  
+	  <div class="CustomPokemonControls">
+		  <fieldset class="form-group">
+			<label for="EnemyName">Enemy Name</label>
+			<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="EnemyName" name="EnemyName" value="ENEMYNAMEKEY" placeholder="Enemy Pokemon name" maxlength="10">
+		  </fieldset>
+		  <fieldset class="form-group">
+			<label for="AllyName">Ally Name</label>
+			<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyName" name="AllyName" value="ALLYNAMEKEY" placeholder="Ally Pokemon name" maxlength="10">    
+		  </fieldset>
+		  <fieldset class="form-group">
+			<label for="AllySpriteUrl">Ally Sprite URL</label>
+			<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllySpriteUrl" name="AllySpriteUrl" value="ALLYSPRITEURLKEY" placeholder="Ally Pokemon Sprite URL">    
+			<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setAllySpriteButton"/>
+			<img style="max-width: 96px; max-height: 96px;" id="AllySprite" src="ALLYSPRITEURLKEY" alt="Click to set selected sprite"/>
+		  </fieldset>
+		  <fieldset class="form-group">
+			<label for="AllyShinySpriteUrl">Ally Shiny Sprite URL</label>
+			<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="AllyShinySpriteUrl" name="AllyShinySpriteUrl" value="ALLYSHINYSPRITEURLKEY" placeholder="Ally Pokemon Shiny Sprite URL">
+			<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setAllyShinySpriteButton"/>
+			<img style="max-width: 96px; max-height: 96px;" id="AllySpriteShiny" src="ALLYSHINYSPRITEURLKEY" alt="Click to set selected sprite"/>
+		  </fieldset>	 
+		  <fieldset class="form-group">
+			<label for="EnemySpriteUrl">Enemy Sprite URL</label>
+			<input style="display:inline-block; width: 200px;" type="text" class="form-control" id="EnemySpriteUrl" name="EnemySpriteUrl" value="ENEMYSPRITEURLKEY" placeholder="Enemy Pokemon Sprite URL">    
+			<button style="margin:2px; height: 96px; width: 96px;" type='button' id="setEnemySpriteButton" />
+			<img style="max-width: 96px; max-height: 96px;" id="EnemySprite" src="ENEMYSPRITEURLKEY" alt="Click to set selected sprite"/>
+		  </fieldset>	
+	  </div>	  
 	  <input id='submit_button' type='button' value='Save' class="btn btn-lg btn-success">
 	</form>
-	<div style="margin: 5px; margin-top: 10px; font-size: 18">
-		<h2>Sprite Finder</h2>
-		<b>
-			Enter the Pokemon's name to retrieve sprites. Click the desired sprite to select it, then the sprite slot to set it.
-		</b>
-	</div>
-	<input style="width: 200px; margin: 5px" type="text" class="form-control typeahead" id="pokeSearch" name="pokeSearch" value="" placeholder="Search for sprite...">
-	<div id="sprites">
+	<div class="CustomPokemonControls">
+		<div style="margin: 5px; margin-top: 10px; font-size: 18">
+			<h2>Sprite Finder</h2>
+			<b>
+				Enter the Pokemon's name to retrieve sprites. Click the desired sprite to select it, then the sprite slot to set it.
+			</b>
+		</div>
+		<input style="width: 200px; margin: 5px" type="text" class="form-control typeahead" id="pokeSearch" name="pokeSearch" value="" placeholder="Search for sprite...">
+		<div id="sprites">
 
+		</div>
 	</div>
 	<div style="margin:5px; margin-top:60px">
 		<div>
@@ -157,6 +166,13 @@
 		$(this).css('border', "solid 2px green");
 	});
 	
+	var handleRandomCheckbox = function(){
+		if($("#RandomMode").is(':checked')){
+			$(".CustomPokemonControls").hide();
+		} else {
+			$(".CustomPokemonControls").show();
+		}
+	};
 	//var pokemonNames = $.getJSON("http://birdhelloworld.herokuapp.com/pokemonNames");
 	var bloodhound = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -169,6 +185,8 @@
 			loadSprites();	
 		});
 		loadSprites();
+		handleRandomCheckbox();
+		$("#RandomMode").change(handleRandomCheckbox);
 	});
   </script>
   <style>
