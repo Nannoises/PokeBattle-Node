@@ -33,6 +33,7 @@ app.get('/custom', function(request, response) {
   if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
     responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
   }
+  responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
   response.end(responseText);
 })
 app.get('/custom-beta', function(request, response) {
@@ -45,6 +46,7 @@ app.get('/custom-beta', function(request, response) {
   if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
     responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
   }
+  responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
   response.end(responseText);
 })
 app.get('/image', function(request, response){
