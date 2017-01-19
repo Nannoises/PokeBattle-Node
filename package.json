@@ -7,9 +7,9 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.13.3",
-    "gm": "^1.22.0",
-    "request": "^2.72.0",
+    "express": "^4.14.0",
+    "gm": "^1.23.0",
+    "request": "^2.79.0",
     "stream": "^0.0.2"
   },
   "engines": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-sample"
+    "url": "git+https://github.com/heroku/node-js-sample.git"
   },
   "keywords": [
     "node",
@@ -28,5 +28,9 @@
   "contributors": [
     "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heroku/node-js-sample/issues"
+  },
+  "homepage": "https://github.com/heroku/node-js-sample#readme"
 }
