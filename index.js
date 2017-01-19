@@ -9,6 +9,7 @@ var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
 var webRequest = require('request');
+var path = require('path');
 var pokemonNames = undefined;
 
 app.get('/', function(request, response) {
@@ -236,4 +237,78 @@ app.get('/formatImage', function(request, response) {
   getAndFormatImage(imageUrl, request, response);
 });
 
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+	//console.log(dirname + " exists!");
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
+var downloadAllSpritesForPokemon = function(pokemonName){
+  if(!pokemonName){
+    response.end("No Pokemon name specified!");
+  }
+  var requestParams = {
+    url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
+    method: "GET",
+    qs : {
+      "search-query" : pokemonName,
+      "mode" : "main-series",
+      "background-color" : "transparent"
+    }
+  };
+  //console.log("Making request: " + JSON.stringify(requestParams));
+  webRequest(requestParams, function(error, innerResponse, body){
+    //console.log("InnerResponse: " + JSON.stringify(innerResponse));
+	if(!body){
+		console.log("Empty body for request: " + JSON.stringify(requestParams));
+		return;
+	}
+	body = body.replace(/<img src="[^>]*?\.gif" [^>]*?>/g, "");
+    //console.log("Body:" + body);
+
+	//Find pngs and download them.
+	var matches = body.match(/\/sprites.*?\.png/g);
+	if(!matches){
+		console.log("No matches found in " + body);
+		return;
+	}
+	for(var i=0;i<matches.length;i++){
+		console.log("Match: " + matches[i]);		
+		var imageUrl = "http://www.pokestadium.com" + matches[i];
+		var filePath = "/Users/Matt/Downloads" + matches[i];
+		downloadImage(imageUrl, filePath);
+	}
+  });
+  
+};
+app.get('/downloadSprites', function(request, response){
+	var pokemonName = request.param('Name');
+	if(!pokemonName){
+		response.end("No Pokemon name specified!");
+	}
+	downloadAllSpritesForPokemon(pokemonName);
+	response.end("Started!");
+});
+var downloadAllPokemonSprites = function(){
+	for(var i=0;i<pokemonNames.length;i++){
+		downloadAllSpritesForPokemon(pokemonNames[i]);
+	}
+}
+var downloadImage = function(imageUrl, downloadPath){
+	webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){			
+		//console.log("filePath: " + downloadPath);
+		ensureDirectoryExistence(downloadPath);
+		fs.writeFile(downloadPath, body, function(err) {
+			if(err) {
+				console.log(err);
+			} else {
+				//console.log(downloadPath + " was saved!");
+			}
+		});
+	});
+};
 retrieveNames();
+//retrieveNames(downloadAllPokemonSprites);
