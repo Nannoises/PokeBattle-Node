@@ -5,7 +5,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/blastoise50'))
 var fs = require('fs');
-var gm = require('gm').subClass({imageMagick: true});
+var gm = require('gm');//.subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var util = require('util');
 var webRequest = require('request');
@@ -59,6 +59,7 @@ app.get('/imagecount', function(request, response){
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+
 var getAndFormatImage = function(imageUrl, request, response){
   webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
@@ -331,5 +332,104 @@ var downloadImage = function(imageUrl, downloadPath, callback){
 		});
 	});
 };
+/*
+var sizeCheck = gm(body).size(function (err, size) {
+      if (!err){
+        console.log('width: ' + size.width + ' height: ' + size.height);
+        var imageName = 'sprite.png';
+        if(imageUrl.endsWith('.gif')){
+          imageName = 'spirte.gif[0]';
+        }
+        var command = gm(body, imageName);
+        if(!dither){
+          command.dither(false);
+        }
+        command.map('pebble_64_transparent.gif');
+        if(size.width > 96 || size.height > 96){
+          command.resize(96,96);
+        }
+        console.log('gm command: ' + JSON.stringify(command));
+        command.toBuffer('PNG8',function (err, buffer) {
+         if(err){
+           console.log('err: ' + err);
+         }
+         response.writeHead(200, {'Content-Type': 'image/png' });
+         response.end(buffer);
+        });
+      }
+      else
+        console.log('Error checking size: ' + err);
+    });
+*/
+var saveFirstframeOfGif = function(image, downloadPath, callback){
+	downloadPath = 'C:' + downloadPath;
+	var command = gm(image, 'image.gif[0]'); //downloadPath + '[0]');
+	var downloadPathLessExtention = downloadPath.substring(0, downloadPath.length - 3);	
+	var downloadPathPng = downloadPathLessExtention + "png";
+	console.log("Attempting to write to: " + downloadPathPng);
+	command.write(downloadPathPng, function(err){
+		if(err){
+			console.log('err: ' + err);
+		}
+		else{
+			console.log('Successfully saved to disk!');
+		}
+		
+		if(callback && typeof callback === "function"){
+			callback();
+		}  
+	});
+};
+var downloadSUMOImage = function(imageUrl, downloadPath, callback){
+	webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){			
+		//console.log("filePath: " + downloadPath);
+		ensureDirectoryExistence(downloadPath);
+		/*saveFirstframeOfGif(body, downloadPath, function(){
+			if(callback && typeof callback === "function"){
+				callback();
+			}   
+		});
+		*/
+		
+		fs.writeFile(downloadPath, body, function(err) {
+			if(err) {
+				console.log(err);
+			} else {
+				console.log(downloadPath + " was saved!");
+				saveFirstframeOfGif(body, downloadPath, function(){
+					if(callback && typeof callback === "function"){
+						callback();
+					}   
+				});
+			}			
+		});
+	});
+};
+var downloadAllSUMOImagesInList = function(imageList, index, callback){	
+	if(index >= imageList.length || imageList[index] === undefined){
+		console.log("Done with list.");
+		if(callback && typeof callback === "function"){
+			callback();			
+		}
+		return;
+	}
+	
+	console.log("Downloading " + imageList[index]);
+	var imageUrl = "http://pokeunlock.com/" + imageList[index];
+	var filePath = "/Users/Matt/Downloads/SUMO" + imageList[index];
+	downloadSUMOImage(imageUrl, filePath, function(){ downloadAllSUMOImagesInList(imageList, index + 1, callback) });
+};
+var downloadSUMOSpritesFromPage = function(url, callback){
+	webRequest.get({url: url, encoding: null}, function(error, innerResponse, body){
+		console.log("Body: " + body);
+		if(!body){
+			console.log("Empty body for request: " + url);
+			return;
+		}
+		var matches = String(body).match(/\/sprites.*?\.gif/g);
+		downloadAllSUMOImagesInList(matches, 0, callback);
+	});
+};
+
 //retrieveNames();
-retrieveNames(function(){ downloadAllPokemonSprites(0); });
+retrieveNames(function(){ downloadSUMOSpritesFromPage('http://pokeunlock.com/sun-and-moon-gif-sprites-3/'); });
