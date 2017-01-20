@@ -1,9 +1,8 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 
-app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
-app.use(express.static(__dirname + '/blastoise50'))
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
@@ -48,12 +47,6 @@ app.get('/custom-beta', function(request, response) {
   }
   responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
   response.end(responseText);
-})
-app.get('/image', function(request, response){
-  response.sendfile('009.png');
-})
-app.get('/imagecount', function(request, response){
-  response.end(JSON.stringify(fs.readdirSync(__dirname + '/blastoise50').length));
 })
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
