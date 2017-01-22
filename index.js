@@ -6,9 +6,10 @@ app.use(express.static(__dirname + '/public'));
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
-var util = require('util');
 var webRequest = require('request');
 var pokemonNames = undefined;
+var generationFolders = ["green", "red-blue", "yellow", "silver",  "crystal", "firered-leafgreen", "emerald", "diamond-pearl", "heartgold-soulsilver", "black-white", "xy", "sun-moon"];
+var globby = require('globby');
 
 app.get('/', function(request, response) {
   var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
@@ -19,8 +20,6 @@ app.get('/', function(request, response) {
   if(request.param('FlickAnimate') && (request.param('FlickAnimate') == 1 || request.param('FlickAnimate') == 'true' || request.param('FlickAnimate') == 'True'))
     responseText = responseText.replace('FLICKANIMATEKEY', 'checked="true"');    
   response.end(responseText);
-  //response.sendfile('settings.html');
-  //response.end(JSON.stringify(responseData));
 })
 app.get('/custom', function(request, response) {
   var responseText = fs.readFileSync('settings-custom.html', {'encoding': "utf8"});
@@ -83,82 +82,64 @@ var getAndFormatImage = function(imageUrl, request, response){
     });
   });
 };
-app.get('/sprites/*', function(request, response){
-  var logData = { "originalUrl": request.originalUrl, "url": request.url, "baseUrl": request.baseUrl, "path": request.path, "route": request.route};
-  //response.end(JSON.stringify(logData));
-  var url = "http://www.pokestadium.com";
-  url += request.path;
-  webRequest(url).pipe(response);
-});
 
-var getMostRecentSprite = function(regex, request, response){
-  var pokemonName = request.param('Name');
-  if(!pokemonName){
-    var index = request.param('Index');
-    console.log('Index: ' + index);
-    console.log('pokemonNames count: ' + pokemonNames.length);
-    if(index && pokemonNames && index <=  pokemonNames.length){
-      pokemonName =  pokemonNames[index];
-    }
-  }
-  if(!pokemonName){
-    response.end("No Pokemon name specified!");
-    return;
-  }
-  pokemonName = pokemonName.toLowerCase();
-  var requestParams = {
-    url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
-    method: "GET",
-    qs : {
-      "search-query" : pokemonName,
-      "mode" : "main-series",
-      "background-color" : "transparent"
-    }
-  };
-  console.log("Making request: " + JSON.stringify(requestParams));
-  webRequest(requestParams, function(error, innerResponse, body){
-    if(error){
-      response.end("Unable to find sprites for provided name. Err: " + error);
-      return;
-    }
-    console.log("InnerResponse: " + innerResponse);
-    console.log("Body:" + body);
-    //Get most recent front sprite
-    var matches = body.match(regex);
-    if(!matches || matches.length < 1){
-      response.end("No sprites found in response: " + body);
-      return;
-    }
-    var path = "";
-    var fileNameRegex = new RegExp(pokemonName)
-    for(var i=0;i<matches.length;i++){
-      if(matches[i].indexOf(pokemonName + ".png") > -1 
-      || matches[i].indexOf(pokemonName + "-mega.png") > -1
-      || matches[i].indexOf(pokemonName + "-mega-y.png") > -1
-      || matches[i].indexOf(pokemonName + "-mega-x.png") > -1){
-        console.log("Match found: " + matches[i]);
-        path = matches[i];
-        break;
-      }
-      if(path == ""){
-        path = matches[0];
-      }
-    }
-    var imageUrl = "http://www.pokestadium.com" + path;
-    getAndFormatImage(imageUrl, request, response);
-  });
+var loadAndFormatImage = function(path, request, response){
+	var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+	var sizeCheck = gm(path).size(function (err, size) {
+	if (!err){
+		console.log('width: ' + size.width + ' height: ' + size.height);
+		var command = gm(path);
+		if(!dither){
+			command.dither(false);
+		}
+		command.map('pebble_64_transparent.gif');
+		if(size.width > 96 || size.height > 96){
+			command.resize(96,96);
+		}
+		console.log('gm command: ' + JSON.stringify(command));
+		command.toBuffer('PNG8',function (err, buffer) {
+			 if(err){
+			   console.log('err: ' + err);
+			 }
+			 response.writeHead(200, {'Content-Type': 'image/png' });
+			 response.end(buffer);
+		});
+	}
+	else
+		console.log('Error checking size: ' + err);
+	});
+};
+
+var getMostRecentSprite = function(subDir, request, response){
+	var pokemonName = request.param('Name');
+	if(!pokemonName){
+		var index = request.param('Index');
+		console.log('Index: ' + index);
+		console.log('pokemonNames count: ' + pokemonNames.length);
+		if(index && pokemonNames && index <=  pokemonNames.length){
+		  pokemonName =  pokemonNames[index];
+		}
+	}
+	if(!pokemonName){
+		response.end("No Pokemon name specified!");
+		return;
+	}
+	pokemonName = pokemonName.toLowerCase();
+	
+	var spritePath = GetMostRecentSpritePath(pokemonName, false, subDir);
+	loadAndFormatImage(spritePath, request, response);
 };
 app.get('/getMostRecentBackSprite', function(request, response){
-  getMostRecentSprite(/\/sprites[^\.]*?\/back\/[^\.]*?\.png/g, request, response);
+	getMostRecentSprite("back", request, response);
 });
 app.get('/getMostRecentFrontSpriteShiny', function(request, response){
-  getMostRecentSprite(/\/sprites[^\.]*?\/shiny\/[^\.]*?\.png/g, request, response);
+	getMostRecentSprite("shiny", request, response);
 });
 app.get('/getMostRecentFrontSprite', function(request, response){
-  getMostRecentSprite(/\/sprites[^\.]*?\.png/g, request, response);
+	getMostRecentSprite("", request, response);
 });
 app.get('/getMostRecentBackSpriteShiny', function(request, response){
-  getMostRecentSprite(/\/sprites[^\.]*?\/shiny\/[^\.]*?back\/[^\.]*?\.png/g, request, response);
+	getMostRecentSprite("shiny/back", request, response);
 });
 
 app.get('/getSprites', function(request, response){
@@ -228,5 +209,38 @@ app.get('/formatImage', function(request, response) {
   }
   getAndFormatImage(imageUrl, request, response);
 });
+
+function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
+	if(!pokemonName){
+		console.log("GetMostRecentFrontSpritePath: No Pokemon name specified!");
+		return;
+	}
+	
+	for(var i = generationFolders.length - 1; i > -1; i--)
+	{
+		var currentPath = "public/sprites/" + generationFolders[i] + "/";
+		if(subDir)
+			currentPath += subDir + "/";	
+		if(baseFormOnly){	
+			currentPath += pokemonName + ".png";
+			if(fs.existsSync(currentPath)){
+				return currentPath;
+			}
+		} else{
+			var files = globby.sync(currentPath + pokemonName + '*.png');
+			//console.log(files);			
+			if(files && files.length > 0){
+				var random = Math.floor(Math.random() * files.length);
+				//console.log(random);
+				return files[random];
+			}							
+		}
+	}
+	
+	var message = "No sprite found for name: " + pokemonName;
+	if(subDir)
+		message += " in subdirectory: " + subDir;
+	console.log(message);
+}
 
 retrieveNames();
