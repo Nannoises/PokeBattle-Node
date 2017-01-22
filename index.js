@@ -46,7 +46,8 @@ app.get('/custom-beta', function(request, response) {
   }
   responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
   response.end(responseText);
-})
+});
+
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
