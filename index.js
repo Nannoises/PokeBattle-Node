@@ -182,7 +182,7 @@ app.get('/formatImage', function(request, response) {
 });
 
 function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
-	var dir = "public/sprites/" + generationFolder + "/*" + pokemonName + "*.png";
+	var dir = "public/sprites/" + generationFolder + "**" + pokemonName + "*.png";
 	var files = globby.sync(dir);
 	console.log("Generation: " + generationFolder + " files: " + files);
 	return files;
