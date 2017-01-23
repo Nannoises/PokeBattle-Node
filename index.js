@@ -135,35 +135,35 @@ app.get('/getMostRecentBackSpriteShiny', function(request, response){
 });
 
 app.get('/getSprites', function(request, response){
-  var pokemonName = request.param('Name');
-  if(!pokemonName){
-    response.end("No Pokemon name specified!");
-  }
-  var requestParams = {
-    url: "http://www.pokestadium.com/tools/search-pokemon-sprites",
-    method: "GET",
-    qs : {
-      "search-query" : pokemonName,
-      "mode" : "main-series",
-      "background-color" : "transparent"
-    }
-  };
-  console.log("Making request: " + JSON.stringify(requestParams));
-  webRequest(requestParams, function(error, innerResponse, body){
-    console.log("InnerResponse: " + JSON.stringify(innerResponse));
-    console.log("Body:" + body);
-    //Remove gifs.
-    body = body.replace(/<img src="[^>]*?\.gif" [^>]*?>/g, "");
-    response.end(body);
+	var pokemonName = request.param('Name');
+	if(!pokemonName){
+		response.end("No Pokemon name specified!");
+	}
+	
+	var responseText = "";
+	for(var i = generationFolders.length - 1; i > -1; i--)
+	{
+		var files = GetAllSpritePathsForGeneration(generationFolders[i], pokemonName);
+		if(files && files.length > 0){
+			responseText += '<div class="generation">' + generationFolders[i].toUpperCase() + '</div>';
+			for(var j=0;j<files.length;j++){
+				responseText += '<div class="sprite"><img src="' + files[j] + '"></div>';
+			}	
+		}
+	}
+	response.end(responseText);
   });
 });
+
 var retrieveNames = function(){
 	pokemonNames = JSON.parse(fs.readFileSync('pokemonNames.txt', 'utf8'));
 	console.log("Pokemon names retrieved: " + pokemonNames);
 };
+
 app.get('/pokemonNames', function(request, response){
 	response.end(JSON.stringify(pokemonNames));
 });
+
 app.get('/pokemonName', function(request, response){
 	var pokemonName = 'Name not found.';
 	var index = request.param('Index');
@@ -172,6 +172,7 @@ app.get('/pokemonName', function(request, response){
 	}
 	response.end(pokemonName);
 });
+
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
   if(!imageUrl){
@@ -179,6 +180,12 @@ app.get('/formatImage', function(request, response) {
   }
   getAndFormatImage(imageUrl, request, response);
 });
+
+function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
+	var dir = "public/sprites/" + generationFolder + "/*" + pokemonName + "*.png";
+	var files = globby.sync(dir);
+	return files;
+};
 
 function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 	if(!pokemonName){
