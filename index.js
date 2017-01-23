@@ -151,8 +151,7 @@ app.get('/getSprites', function(request, response){
 			}	
 		}
 	}
-	response.end(responseText);
-  });
+	response.end(responseText);  
 });
 
 var retrieveNames = function(){
