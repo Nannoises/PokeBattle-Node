@@ -166,33 +166,20 @@ app.get('/getSprites', function(request, response){
     response.end(body);
   });
 });
-var retrieveNames = function(callback){
+var retrieveNames = function(){
 	pokemonNames = JSON.parse(fs.readFileSync('pokemonNames.txt', 'utf8'));
 	console.log("Pokemon names retrieved: " + pokemonNames);
 };
 app.get('/pokemonNames', function(request, response){
-  if(pokemonNames !== undefined){
-     response.end(JSON.stringify(pokemonNames));
-  } else {
-    retrieveNames(function(){ response.end(JSON.stringify(pokemonNames));});
-  }
+	response.end(JSON.stringify(pokemonNames));
 });
 app.get('/pokemonName', function(request, response){
-  var pokemonName = 'Name not found.';
-  var index = request.param('Index');
-  if(pokemonNames !== undefined){
-    if(index && index <=  pokemonNames.length){
-        pokemonName =  pokemonNames[index];
-    }
-    response.end(pokemonName);
-  } else {
-    retrieveNames(function(){
-      if(index && index <=  pokemonNames.length){
-          pokemonName =  pokemonNames[index];
-      }
-      response.end(pokemonName);
-    });
-  }
+	var pokemonName = 'Name not found.';
+	var index = request.param('Index');
+	if(index && index <=  pokemonNames.length){
+		pokemonName =  pokemonNames[index];
+	}
+	response.end(pokemonName);
 });
 app.get('/formatImage', function(request, response) {
   var imageUrl = request.param('ImageUrl');
