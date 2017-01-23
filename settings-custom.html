@@ -121,16 +121,10 @@
 	// Encode and send the data when the page closes
 	document.location = return_to + encodeURIComponent(JSON.stringify(options));
 	});
-	$("#AllySpriteUrl").change(function(){
+	$("#AllySpriteUrl").on('change, keyup', function(){
 		$("#AllySprite").attr("src", $("#AllySpriteUrl").val());
 	});
-	$("#AllySpriteUrl").keyup(function(){
-		$("#AllySprite").attr("src", $("#AllySpriteUrl").val());
-	});
-	$("#AllyShinySpriteUrl").change(function(){
-		$("#AllySpriteShiny").attr("src", $("#AllyShinySpriteUrl").val());
-	});
-	$("#AllyShinySpriteUrl").keyup(function(){
+	$("#AllyShinySpriteUrl").on('change, keyup', function(){
 		$("#AllySpriteShiny").attr("src", $("#AllyShinySpriteUrl").val());
 	});
 	$("#EnemySpriteUrl").on('change, keyup', function(){
