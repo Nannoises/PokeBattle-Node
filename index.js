@@ -167,17 +167,8 @@ app.get('/getSprites', function(request, response){
   });
 });
 var retrieveNames = function(callback){
-  webRequest('http://www.pokestadium.com/pokemon-fusions/pokemon-list', function (error, innerResponse, body) {
-      if (!error && innerResponse.statusCode == 200) {
-        console.log('body ' + body);
-        var results = JSON.parse(body);
-        console.log("parsed body: " + JSON.stringify(results));
-        pokemonNames = results;
-      }
-     if(callback && typeof callback === "function"){
-       callback();
-     }      
-    });
+	pokemonNames = JSON.parse(fs.readFileSync('pokemonNames.txt', 'utf8'));
+	console.log("Pokemon names retrieved: " + pokemonNames);
 };
 app.get('/pokemonNames', function(request, response){
   if(pokemonNames !== undefined){
@@ -216,6 +207,8 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 		console.log("GetMostRecentFrontSpritePath: No Pokemon name specified!");
 		return;
 	}
+	
+	pokemonName = pokemonName.replace(" ", "").replace(":", "");
 	
 	for(var i = generationFolders.length - 1; i > -1; i--)
 	{
