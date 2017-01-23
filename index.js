@@ -151,6 +151,7 @@ app.get('/getSprites', function(request, response){
 			}	
 		}
 	}
+	console.log("Response: " + responseText);
 	response.end(responseText);  
 });
 
