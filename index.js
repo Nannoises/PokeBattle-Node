@@ -11,46 +11,42 @@ var pokemonNames = undefined;
 var generationFolders = ["green", "red-blue", "yellow", "silver",  "crystal", "firered-leafgreen", "emerald", "diamond-pearl", "heartgold-soulsilver", "black-white", "xy", "sun-moon"];
 var globby = require('globby');
 
+function replaceAllKeys(responseText, request){
+	responseText = responseText.replace(/ALLYNAMEKEY/g, request.param('AllyName') || '');
+	responseText = responseText.replace(/ENEMYNAMEKEY/g, request.param('EnemyName') || '');
+	if(request.param('FocusAnimate') && (request.param('FocusAnimate') == 1 || request.param('FocusAnimate') == 'true' || request.param('FocusAnimate') == 'True'))
+		responseText = responseText.replace('FOCUSANIMATEKEY', 'checked="true"');
+	if(request.param('FlickAnimate') && (request.param('FlickAnimate') == 1 || request.param('FlickAnimate') == 'true' || request.param('FlickAnimate') == 'True'))
+		responseText = responseText.replace('FLICKANIMATEKEY', 'checked="true"');
+	responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
+	responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
+	responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
+	if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
+		responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
+	}
+	responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
+	return responseText;
+};
 app.get('/', function(request, response) {
-  var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
-  responseText = responseText.replace('ALLYNAMEKEY', request.param('AllyName') || '');
-  responseText = responseText.replace('ENEMYNAMEKEY', request.param('EnemyName') || '');
-  if(request.param('FocusAnimate') && (request.param('FocusAnimate') == 1 || request.param('FocusAnimate') == 'true' || request.param('FocusAnimate') == 'True'))
-    responseText = responseText.replace('FOCUSANIMATEKEY', 'checked="true"');
-  if(request.param('FlickAnimate') && (request.param('FlickAnimate') == 1 || request.param('FlickAnimate') == 'true' || request.param('FlickAnimate') == 'True'))
-    responseText = responseText.replace('FLICKANIMATEKEY', 'checked="true"');    
-  response.end(responseText);
+	var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
+	responseText = replaceAllKeys(responseText, request);
+	response.end(responseText);
 })
 app.get('/custom', function(request, response) {
-  var responseText = fs.readFileSync('settings-custom.html', {'encoding': "utf8"});
-  responseText = responseText.replace(/ALLYNAMEKEY/g, request.param('AllyName') || '');
-  responseText = responseText.replace(/ENEMYNAMEKEY/g, request.param('EnemyName') || '');
-  responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
-  responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
-  responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
-  if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
-    responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
-  }
-  responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
-  response.end(responseText);
+	var responseText = fs.readFileSync('settings-custom.html', {'encoding': "utf8"});
+	responseText = replaceAllKeys(responseText, request);
+	response.end(responseText);
 })
 app.get('/custom-beta', function(request, response) {
-  var responseText = fs.readFileSync('settings-custom-beta.html', {'encoding': "utf8"});
-  responseText = responseText.replace(/ALLYNAMEKEY/g, request.param('AllyName') || '');
-  responseText = responseText.replace(/ENEMYNAMEKEY/g, request.param('EnemyName') || '');
-  responseText = responseText.replace(/ALLYSPRITEURLKEY/g, request.param('AllySpriteUrl') || '');
-  responseText = responseText.replace(/ALLYSHINYSPRITEURLKEY/g, request.param('AllyShinySpriteUrl') || '');
-  responseText = responseText.replace(/ENEMYSPRITEURLKEY/g, request.param('EnemySpriteUrl') || '');
-  if(request.param('RandomMode') == 1 || request.param('RandomMode') == '1' || request.param('RandomMode') == true || request.param('RandomMode') == 'true'){
-    responseText = responseText.replace(/RANDOMMODEKEY/g, 'checked');
-  }
-  responseText = responseText.replace(/WEATHERAPIKEY/g, request.param('WeatherAPIKey') || '');
-  response.end(responseText);
+	var responseText = fs.readFileSync('settings-custom-beta.html', {'encoding': "utf8"});
+	responseText = replaceAllKeys(responseText, request);
+  	response.end(responseText);
 });
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
-})
+});
+
 var getAndFormatImage = function(imageUrl, request, response){
   webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
     var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
