@@ -3,7 +3,7 @@
   <head>
     <title>Configuration</title>
   </head>
-  <body style="background-image: url('http://birdhelloworld.herokuapp.com/20th.jpg')">
+  <body style="background-image: url('https://birdhelloworld.herokuapp.com/20th.jpg')">
 	<form id="settingsForm" style="margin: 10px">
 	  <fieldset>
 		<label for="RandomMode">Random Mode</label>
@@ -70,7 +70,7 @@
                 </div>
 	</div>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">	
   </body>
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -139,7 +139,7 @@
 	var loadSprites = function(){
 		var value = $("#pokeSearch").val();
 		if(value in bloodhound.index.datums){
-			$("#sprites").load("http://birdhelloworld.herokuapp.com/getSprites?Name=" +  encodeURIComponent(value));
+			$("#sprites").load("https://birdhelloworld.herokuapp.com/getSprites?Name=" +  encodeURIComponent(value));
 		}
 	};
 	$("#pokeSearch").on('change, keyup', function(){
@@ -166,7 +166,7 @@
 	});
 	$("#sprites").on("click", "img", function(event){
 		console.log(this);
-		currentSprite = "http://birdhelloworld.herokuapp.com" + $(this).attr('src');
+		currentSprite = "https://birdhelloworld.herokuapp.com" + $(this).attr('src');
 		$("#sprites img").css('border', 'none');
 		$(this).css('border', "solid 2px green");
 	});
