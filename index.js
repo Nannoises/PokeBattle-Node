@@ -31,16 +31,11 @@ app.get('/', function(request, response) {
 	var responseText = fs.readFileSync('settings.html', {'encoding': "utf8"});
 	responseText = replaceAllKeys(responseText, request);
 	response.end(responseText);
-})
+});
 app.get('/custom', function(request, response) {
 	var responseText = fs.readFileSync('settings-custom.html', {'encoding': "utf8"});
 	responseText = replaceAllKeys(responseText, request);
 	response.end(responseText);
-})
-app.get('/custom-beta', function(request, response) {
-	var responseText = fs.readFileSync('settings-custom-beta.html', {'encoding': "utf8"});
-	responseText = replaceAllKeys(responseText, request);
-  	response.end(responseText);
 });
 
 app.listen(app.get('port'), function() {
