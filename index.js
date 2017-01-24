@@ -9,6 +9,7 @@ var Transform = require('stream').Transform;
 var webRequest = require('request');
 var pokemonNames = undefined;
 var generationFolders = ["green", "red-blue", "yellow", "silver",  "crystal", "firered-leafgreen", "emerald", "diamond-pearl", "heartgold-soulsilver", "black-white", "xy", "sun-moon"];
+var subDirectories = ["", "back", "shiny", "shiny/back"];
 var globby = require('globby');
 
 function replaceAllKeys(responseText, request){
@@ -115,8 +116,7 @@ var getMostRecentSprite = function(subDir, request, response){
 	if(!pokemonName){
 		response.end("No Pokemon name specified!");
 		return;
-	}
-	pokemonName = pokemonName.toLowerCase();
+	}	
 	
 	var spritePath = GetMostRecentSpritePath(pokemonName, false, subDir);
 	loadAndFormatImage(spritePath, request, response);
@@ -142,14 +142,15 @@ app.get('/getSprites', function(request, response){
 	
 	var responseText = "";
 	for(var i = generationFolders.length - 1; i > -1; i--)
-	{
+	{				
 		var files = GetAllSpritePathsForGeneration(generationFolders[i], pokemonName);
 		if(files && files.length > 0){
 			responseText += '<div class="generation">' + generationFolders[i].toUpperCase() + '</div>';
-			for(var j=0;j<files.length;j++){
-				responseText += '<div class="sprite"><img src="' + files[j] + '"></div>';
+			for(var k=0;k<files.length;k++){
+				var imageUrl = files[k].substring(7, files[k].length);
+				responseText += '<div class="sprite"><img src="' + imageUrl + '"></div>';
 			}	
-		}
+		}			
 	}
 	console.log("Response: " + responseText);
 	response.end(responseText);  
@@ -182,10 +183,24 @@ app.get('/formatImage', function(request, response) {
 });
 
 function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
-	var dir = "public/sprites/" + generationFolder + "**" + pokemonName + "*.png";
-	var files = globby.sync(dir);
-	console.log("Generation: " + generationFolder + " files: " + files);
+	pokemonName = SanitizePokemonName(pokemonName);
+	
+	files = [];
+	for(var i=0; i < subDirectories.length; i++){
+		var dir = "public/sprites/" + generationFolder + "/";
+		if(subDirectories[i] != "")
+			dir += subDirectories[i] + "/";
+		dir += pokemonName + '*.png';
+		
+		files = files.concat(globby.sync(dir));
+	}
+
+	console.log("Generation: " + generationFolder + " files: " + JSON.stringify(files));
 	return files;
+};
+
+function SanitizePokemonName(pokemonName){
+	return pokemonName.replace(" ", "").replace(":", "").toLowerCase();
 };
 
 function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
@@ -194,7 +209,7 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 		return;
 	}
 	
-	pokemonName = pokemonName.replace(" ", "").replace(":", "");
+	pokemonName = SanitizePokemonName(pokemonName);
 	
 	for(var i = generationFolders.length - 1; i > -1; i--)
 	{
