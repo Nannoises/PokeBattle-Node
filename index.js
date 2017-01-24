@@ -44,36 +44,36 @@ app.listen(app.get('port'), function() {
 });
 
 var getAndFormatImage = function(imageUrl, request, response){
-  webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
-    var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-    var sizeCheck = gm(body).size(function (err, size) {
-      if (!err){
-        console.log('width: ' + size.width + ' height: ' + size.height);
-        var imageName = 'sprite.png';
-        if(imageUrl.endsWith('.gif')){
-          imageName = 'spirte.gif[0]';
-        }
-        var command = gm(body, imageName);
-        if(!dither){
-          command.dither(false);
-        }
-        command.map('pebble_64_transparent.gif');
-        if(size.width > 96 || size.height > 96){
-          command.resize(96,96);
-        }
-        console.log('gm command: ' + JSON.stringify(command));
-        command.toBuffer('PNG8',function (err, buffer) {
-         if(err){
-           console.log('err: ' + err);
-         }
-         response.writeHead(200, {'Content-Type': 'image/png' });
-         response.end(buffer);
-        });
-      }
-      else
-        console.log('Error checking size: ' + err);
-    });
-  });
+	webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
+		var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+		var sizeCheck = gm(body).size(function (err, size) {
+		if (!err){
+			console.log('width: ' + size.width + ' height: ' + size.height);
+			var imageName = 'sprite.png';
+			if(imageUrl.endsWith('.gif')){
+				imageName = 'spirte.gif[0]';
+			}
+			var command = gm(body, imageName);
+			if(!dither){
+				command.dither(false);
+			}
+			command.map('pebble_64_transparent.gif');
+			if(size.width > 96 || size.height > 96){
+			 	command.resize(96,96);
+			}
+			console.log('gm command: ' + JSON.stringify(command));
+			command.toBuffer('PNG8',function (err, buffer) {
+				if(err){
+				  console.log('err: ' + err);
+				}
+				response.writeHead(200, {'Content-Type': 'image/png' });
+				response.end(buffer);
+			});
+		}
+		else
+			console.log('Error checking size: ' + err);
+		});
+	});
 };
 
 var loadAndFormatImage = function(path, request, response){
@@ -175,11 +175,16 @@ app.get('/pokemonName', function(request, response){
 });
 
 app.get('/formatImage', function(request, response) {
-  var imageUrl = request.param('ImageUrl');
-  if(!imageUrl){
-    response.end("No image URL provided!");
-  }
-  getAndFormatImage(imageUrl, request, response);
+	var imageUrl = request.param('ImageUrl');
+	if(!imageUrl){
+		response.end("No image URL provided!");
+	}
+	//IF we know this is a relative link then load it instead of circular requesting. 
+	if(imageUrl[0] == '/'){
+		loadAndFormatImage(imageUrl, request, response);	
+	} else {
+		getAndFormatImage(imageUrl, request, response);	
+	}  
 });
 
 function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
