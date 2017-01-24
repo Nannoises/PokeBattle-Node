@@ -181,7 +181,7 @@ app.get('/formatImage', function(request, response) {
 	}
 	//IF we know this is a relative link then load it instead of circular requesting. 
 	if(imageUrl[0] == '/'){
-		var path = 'public' = imageUrl;
+		var path = 'public' + imageUrl;
 		loadAndFormatImage(path, request, response);	
 	} else {
 		getAndFormatImage(imageUrl, request, response);	
