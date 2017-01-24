@@ -176,12 +176,13 @@ app.get('/pokemonName', function(request, response){
 
 app.get('/formatImage', function(request, response) {
 	var imageUrl = request.param('ImageUrl');
-	if(!imageUrl){
+	if(!imageUrl || imageUrl.length < 1){
 		response.end("No image URL provided!");
 	}
 	//IF we know this is a relative link then load it instead of circular requesting. 
 	if(imageUrl[0] == '/'){
-		loadAndFormatImage(imageUrl, request, response);	
+		var path = imageUrl.substring(1, imageUrl.length);
+		loadAndFormatImage(path, request, response);	
 	} else {
 		getAndFormatImage(imageUrl, request, response);	
 	}  
