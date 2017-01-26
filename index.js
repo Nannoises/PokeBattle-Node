@@ -249,7 +249,7 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 			upOneDir = subDir.substring(0, subDir.indexOf('/'));
 		}
 
-		var nextAttempt = GetMostRecentSpritePath(pokemonName, baseFromOnly, upOneDir);
+		var nextAttempt = GetMostRecentSpritePath(pokemonName, baseFormOnly, upOneDir);
 		if(nextAttempt){
 			console.log("No sprite found at: " + subDir + " Defaulting to: " + nextAttempt);
 			return nextAttempt;
