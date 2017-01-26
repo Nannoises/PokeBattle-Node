@@ -243,6 +243,19 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 		}
 	}
 	
+	if(subDir){
+		var upOneDir = undefined;
+		if(subDir.indexOf('/') > 0){
+			upOneDir = subDir.substring(0, subDir.indexOf('/'));
+		}
+
+		var nextAttempt = GetMostRecentSpritePath(pokemonName, baseFromOnly, upOneDir);
+		if(nextAttempt){
+			console.log("No sprite found at: " + subDir + " Defaulting to: " + nextAttempt);
+			return nextAttempt;
+		}
+	}
+	
 	var message = "No sprite found for name: " + pokemonName;
 	if(subDir)
 		message += " in subdirectory: " + subDir;
