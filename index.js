@@ -246,7 +246,8 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 	if(subDir){
 		var upOneDir = undefined;
 		if(subDir.indexOf('/') > 0){
-			upOneDir = subDir.substring(0, subDir.indexOf('/'));
+			//If not in 'shiny/back', try just 'back'
+			upOneDir = subDir.substring(subDir.indexOf('/'), subDir.length);
 		}
 
 		var nextAttempt = GetMostRecentSpritePath(pokemonName, baseFormOnly, upOneDir);
