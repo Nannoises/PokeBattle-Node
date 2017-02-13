@@ -211,7 +211,6 @@ function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
 };
 
 function SanitizePokemonName(pokemonName){
-	return pokemonName.replace(" ", "").replace(":", "").toLowerCase();
 };
 
 function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
