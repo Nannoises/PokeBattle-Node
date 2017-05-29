@@ -201,7 +201,7 @@ function GetAllSpritePathsForGeneration(generationFolder, pokemonName){
 		var dir = "public/sprites/" + generationFolder + "/";
 		if(subDirectories[i] != "")
 			dir += subDirectories[i] + "/";
-		dir += pokemonName + '*.png';
+		dir += pokemonName + '?(-*).png';
 		
 		files = files.concat(globby.sync(dir));
 	}
@@ -239,7 +239,7 @@ function GetMostRecentSpritePath(pokemonName, baseFormOnly, subDir){
 				return currentPath;
 			}
 		} else{
-			var files = globby.sync(currentPath + pokemonName + '*.png');
+			var files = globby.sync(currentPath + pokemonName + '?(-*).png');
 			//console.log(files);			
 			if(files && files.length > 0){
 				var random = Math.floor(Math.random() * files.length);
