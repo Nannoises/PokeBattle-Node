@@ -46,7 +46,7 @@ app.listen(app.get('port'), function() {
 var getAndFormatImage = function(imageUrl, request, response){
 	webRequest.get({url: imageUrl, encoding: null}, function(error, innerResponse, body){
 		var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
-		var twoBit = request.param('twoBit') == 1 || request.param('twoBit') == '1' || request.param('twoBit') == true || request.param('twoBit') == 'true');
+		var twoBit = request.param('twoBit') && (request.param('twoBit') == '1' || request.param('twoBit') == true || request.param('twoBit').toLowerCase == 'true');
 		var sizeCheck = gm(body).size(function (err, size) {
 		if (!err){
 			console.log('width: ' + size.width + ' height: ' + size.height);
