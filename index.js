@@ -93,7 +93,7 @@ var loadAndFormatImage = function(path, request, response){
 			command.dither(false);
 		}
 		if(twoBit){
-			command.map('pebble_2.png');
+			command.bitdepth(2);
 		}
 		else{
 			command.map('pebble_64_transparent.gif');
