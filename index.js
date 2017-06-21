@@ -58,10 +58,12 @@ var getAndFormatImage = function(imageUrl, request, response){
 			if(!dither){
 				command.dither(false);
 			}
-			if(twoBit)
+			if(twoBit){
 				command.map('pebble_2.png');
-			else
+			}
+			else{
 				command.map('pebble_64_transparent.gif');
+			}
 			if(size.width > 96 || size.height > 96){
 			 	command.resize(96,96);
 			}
@@ -82,6 +84,7 @@ var getAndFormatImage = function(imageUrl, request, response){
 
 var loadAndFormatImage = function(path, request, response){
 	var dither = request.param('Dither') && (request.param('Dither').toLowerCase() == 'true' ||  request.param('Dither') == '1');
+	var twoBit = request.param('twoBit') && (request.param('twoBit') == '1' || request.param('twoBit') == true || request.param('twoBit').toLowerCase == 'true');
 	var sizeCheck = gm(path).size(function (err, size) {
 	if (!err){
 		console.log('width: ' + size.width + ' height: ' + size.height);
@@ -89,7 +92,12 @@ var loadAndFormatImage = function(path, request, response){
 		if(!dither){
 			command.dither(false);
 		}
-		command.map('pebble_64_transparent.gif');
+		if(twoBit){
+			command.map('pebble_2.png');
+		}
+		else{
+			command.map('pebble_64_transparent.gif');
+		}
 		if(size.width > 96 || size.height > 96){
 			command.resize(96,96);
 		}
