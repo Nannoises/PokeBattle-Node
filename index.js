@@ -8,7 +8,7 @@ var gm = require('gm').subClass({imageMagick: true});
 var Transform = require('stream').Transform;
 var webRequest = require('request');
 var pokemonNames = undefined;
-var generationFolders = ["green", "red-blue", "yellow", "silver",  "crystal", "firered-leafgreen", "emerald", "diamond-pearl", "heartgold-soulsilver", "black-white", "xy", "sun-moon", "sun-moon-gba"];
+var generationFolders = ["green", "red-blue", "yellow", "silver",  "crystal", "firered-leafgreen", "emerald", "diamond-pearl", "heartgold-soulsilver", "black-white", "xy", "sun-moon", "community-gba"];
 var subDirectories = ["", "back", "shiny", "shiny/back"];
 var globby = require('globby');
 
