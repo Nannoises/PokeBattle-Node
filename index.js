@@ -133,7 +133,7 @@ var getMostRecentSprite = function(subDir, request, response){
 	var skipFormatting = request.param('SkipFormat') && (request.param('SkipFormat').toLowerCase() == 'true' ||  request.param('SkipFormat') == '1');	
 	var spritePath = GetMostRecentSpritePath(pokemonName, false, subDir);
 	if(skipFormatting){
-		response.end(spritePath);	
+		response.sendFile(spritePath);	
 	}
 	else {
 		loadAndFormatImage(spritePath, request, response);
