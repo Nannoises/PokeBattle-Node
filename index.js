@@ -130,8 +130,14 @@ var getMostRecentSprite = function(subDir, request, response){
 		return;
 	}	
 	
+	var skipFormatting = request.param('SkipFormat') && (request.param('SkipFormat').toLowerCase() == 'true' ||  request.param('SkipFormat') == '1');	
 	var spritePath = GetMostRecentSpritePath(pokemonName, false, subDir);
-	loadAndFormatImage(spritePath, request, response);
+	if(skipFormatting){
+		response.end(spritePath);	
+	}
+	else {
+		loadAndFormatImage(spritePath, request, response);
+	}
 };
 app.get('/getMostRecentBackSprite', function(request, response){
 	getMostRecentSprite("back", request, response);
