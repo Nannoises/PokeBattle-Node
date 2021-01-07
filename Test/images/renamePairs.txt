@@ -1,223 +1,224 @@
-A1.png | Grookey.png
-A2.png | Clobbopus.png
-A3.png | Alcremie
-A4.png | Toxtricity
-A5.png | Hatenna
-A6.png | Alcremie-1
-A7.png | Indeedee-Male
-A8.png | Corsola
-A9.png | Sizzlipede
-A10.png | Alcremie-2
-A11.png | Indeedee-Female
-A12.png | Zigzagoon-Galarian
-A13.png | Alcremie-3
-A14.png | Centiskorch
-A15.png | Alcremie-4
-A16.png | Morpeko
-A17.png | Linoone-Galarian
-A18.png | Arctozolt
-A19.png | Stunfisk-Galarian
-A20.png | Cinderace
-A21.png | Hattrem
-A22.png | Alcremie-5
-A23.png | Morpeko-Hangry
-A24.png | Dracovish
-A25.png | Venusaur-Galar-Normal
-A26.png | Sobble
-A27.png | Hatterene
-A28.png | Alcremie-6
-A29.png | Arctovish
-A30.png | Charizard-Galar-Normal
-A31.png | Drizzile
-A32.png | Darumaka-Galarian
-A33.png | Impidimp
-A34.png | Alcremie-7
-A35.png | Duraludon
-A36.png | Blastoise-Gmax
-A37.png | Inteleon
-A38.png | Morgrem
-A39.png | Alcremie-8
-A40.png | Dreepy
-A41.png | Butterfree-Gmax
-A42.png | Skwovet
-A43.png | Grimmsnarl
-A44.png | Alcremie-9
-A45.png | Drakloak
-A46.png | Pikachu-Gmax
-A47.png | Greedent
-A48.png | Obstagoon
-A49.png | Alcremie-10
-A50.png | Thwackey
-A51.png | Dragapult
-A52.png | Meowth-Gmax
-A53.png | Rookidee
-A54.png | Perrserker
-A55.png | Alcremie-11
-A56.png | Zacian
-A57.png | Machamp-Gmax
-A58.png | Corvisquire
-A59.png | Grapploct
-A60.png | Cursola
-A61.png | Alcremie-12
-A62.png | Zacian-Crowned-Sword
-A63.png | Gengar-Gmax
-A64.png | Corviknight
-A65.png | Sirfetch'd
-A66.png | Alcremie-13
-A67.png | Zacian-Sword
-A68.png | Kingler-Gmax
-A69.png | Alcremie-14
-A70.png | Blipbug
-A71.png | Mr. Rime
-A72.png | Alcremie-15
-A73.png | Zamazenta
-A74.png | Lapras-Gmax
-A75.png | Dottler
-A76.png | Runerigus
-A77.png | Alcremie-16
-A78.png | Cufant
-A79.png | Zamazenta-Shield
-A80.png | Evee-Galar-Normal
-A81.png | Orbeetle
-A82.png | Milcery
-A83.png | Alcremie-17
-A84.png | Zamazenta-Crowned-Shield
-A85.png | Snorlax-Gmax
-A86.png | Nickit
-A87.png | Darmanitan-Galarian
-A88.png | Alcremie-18
-A89.png | Alcremie-19
-A90.png | Eternatus
-A91.png | Garbodor
-A92.png | Thievul
-A93.png | Alcremie-20
-A94.png | Alcremie-21
-A95.png | Kubfu
-A96.png | Melmetal-Gmax
-A97.png | Gossifleur
-A98.png | Alcremie-22
-A99.png | Alcremie-23
-A100.png | Urshifu-Single
-A101.png | Rillaboom-Gmax
-A102.png | Eldegoss
-A103.png | Alcremie-24
-A104.png | Alcremie-25
-A105.png | Rillaboom
-A106.png | Urshifu-Rapid
-A107.png | 
-A108.png | 
-A109.png | 
-A110.png | 
-A111.png | 
-A112.png | 
-A113.png | 
-A114.png | 
-A115.png | 
-A116.png | 
-A117.png | 
-A118.png | 
-A119.png | 
-A120.png | 
-A121.png | 
-A122.png | 
-A123.png | 
-A124.png | 
-A125.png | 
-A126.png | 
-A127.png | 
-A128.png | 
-A129.png | 
-A130.png | 
-A131.png | 
-A132.png | 
-A133.png | 
-A134.png | 
-A135.png | 
-A136.png | 
-A137.png | 
-A138.png | 
-A139.png | 
-A140.png | 
-A141.png | 
-A142.png | 
-A143.png | 
-A144.png | 
-A145.png | 
-A146.png | 
-A147.png | 
-A148.png | 
-A149.png | 
-A150.png | 
-A151.png | 
-A152.png | 
-A153.png | 
-A154.png | 
-A155.png | 
-A156.png | 
-A157.png | 
-A158.png | 
-A159.png | 
-A160.png | 
-A161.png | 
-A162.png | 
-A163.png | 
-A164.png | 
-A165.png | 
-A166.png | 
-A167.png | 
-A168.png | 
-A169.png | 
-A170.png | 
-A171.png | 
-A172.png | 
-A173.png | 
-A174.png | 
-A175.png | 
-A176.png | 
-A177.png | 
-A178.png | 
-A179.png | 
-A180.png | 
-A181.png | 
-A182.png | 
-A183.png | 
-A184.png | 
-A185.png | 
-A186.png | 
-A187.png | 
-A188.png | 
-A189.png | 
-A190.png | 
-A191.png | 
-A192.png | 
-A193.png | 
-A194.png | 
-A195.png | 
-A196.png | 
-A197.png | 
-A198.png | 
-A199.png | 
-A200.png | 
-A201.png | 
-A202.png | 
-A203.png | 
-A204.png | 
-A205.png | 
-A206.png | 
-A207.png | 
-A208.png | 
-A209.png | 
-A210.png | 
-A211.png | 
-A212.png | 
-A213.png | 
-A214.png | 
-A215.png | 
-A216.png | 
-A217.png | 
-A218.png | 
-A219.png | 
-A220.png | 
-A221.png | 
-A222.png | 
-A223.png | 
+A1.png | grookey.png
+A2.png | clobbopus.png
+A3.png | alcremie.png
+A4.png | toxtricity.png
+A5.png | hatenna.png
+A6.png | alcremie-1.png
+A7.png | indeedee-male.png
+A8.png | corsola.png
+A9.png | sizzlipede.png
+A10.png | alcremie-2.png
+A11.png | indeedee-female.png
+A12.png | zigzagoon-galarian.png
+A13.png | alcremie-3.png
+A14.png | centiskorch.png
+A15.png | alcremie-4.png
+A16.png | morpeko.png
+A17.png | linoone-galarian.png
+A18.png | arctozolt.png
+A19.png | stunfisk-galarian.png
+A20.png | cinderace.png
+A21.png | hattrem.png
+A22.png | alcremie-5.png
+A23.png | morpeko-hangry.png
+A24.png | dracovish.png
+A25.png | venusaur-gmax.png
+A26.png | sobble.png
+A27.png | hatterene.png
+A28.png | alcremie-6.png
+A29.png | arctovish.png
+A30.png | charizard-gmax.png
+A31.png | drizzile.png
+A32.png | darumaka-galarian.png
+A33.png | impidimp.png
+A34.png | alcremie-7.png
+A35.png | duraludon.png
+A36.png | blastoise-gmax.png
+A37.png | inteleon.png
+A38.png | morgrem.png
+A39.png | alcremie-8.png
+A40.png | dreepy.png
+A41.png | butterfree-gmax.png
+A42.png | skwovet.png
+A43.png | grimmsnarl.png
+A44.png | alcremie-9.png
+A45.png | drakloak.png
+A46.png | pikachu-gmax.png
+A47.png | greedent.png
+A48.png | obstagoon.png
+A49.png | alcremie-10.png
+A50.png | thwackey.png
+A51.png | dragapult.png
+A52.png | meowth-gmax.png
+A53.png | rookidee.png
+A54.png | perrserker.png
+A55.png | alcremie-11.png
+A56.png | zacian.png
+A57.png | machamp-gmax.png
+A58.png | corvisquire.png
+A59.png | grapploct.png
+A60.png | cursola.png
+A61.png | alcremie-12.png
+A62.png | zacian-crowned-sword.png
+A63.png | gengar-gmax.png
+A64.png | corviknight.png
+A65.png | sirfetch'd.png
+A66.png | alcremie-13.png
+A67.png | zacian-sword.png
+A68.png | kingler-gmax.png
+A69.png | alcremie-14.png
+A70.png | blipbug.png
+A71.png | mr. rime.png
+A72.png | alcremie-15.png
+A73.png | zamazenta.png
+A74.png | lapras-gmax.png
+A75.png | dottler.png
+A76.png | runerigus.png
+A77.png | alcremie-16.png
+A78.png | cufant.png
+A79.png | zamazenta-shield.png
+A80.png | evee-galar-normal.png
+A81.png | orbeetle.png
+A82.png | milcery.png
+A83.png | alcremie-17.png
+A84.png | zamazenta-crowned-Shield.png
+A85.png | snorlax-gmax.png
+A86.png | nickit.png
+A87.png | darmanitan-galarian.png
+A88.png | alcremie-18.png
+A89.png | alcremie-19.png
+A90.png | eternatus.png
+A91.png | garbodor.png
+A92.png | thievul.png
+A93.png | alcremie-20.png
+A94.png | alcremie-21.png
+A95.png | kubfu.png
+A96.png | melmetal-gmax.png
+A97.png | gossifleur.png
+A98.png | alcremie-22.png
+A99.png | alcremie-23.png
+A100.png | urshifu-single.png
+A101.png | rillaboom-gmax.png
+A102.png | eldegoss.png
+A103.png | alcremie-24.png
+A104.png | alcremie-25.png
+A105.png | rillaboom.png
+A106.png | urshifu-rapid.png
+A107.png | cinderace-gmax.png
+A108.png | wooloo.png
+A109.png | alcremie-26.png
+A110.png | alcremie-27.png
+A111.png | zarude.png
+A112.png | inteleon-gmax.png
+A113.png | dubwool.png
+A114.png | sinistea.png
+A115.png | alcremie-28.png
+A116.png | alcremie-29.png
+A117.png | zarude-dada.png
+A118.png | corviknight-gmax.png
+A119.png | chewtle.png
+A120.png | alcremie-30.png
+A121.png | alcremie-31.png
+A122.png | regieleki.png
+A123.png | orbeetle-gmax.png
+A124.png | alcremie-32.png
+A125.png | drednaw.png
+A126.png | alcremie-33.png
+A127.png | alcremie-34.png
+A128.png | regidrago.png
+A129.png | drednaw-gmax.png
+A130.png | yamper.png
+A131.png | alcremie-35.png
+A132.png | alcremie-36.png
+A133.png | copperajah.png
+A134.png | glastrier.png
+A135.png | coalossal-gmax.png
+A136.png | boltund.png
+A137.png | alcremie-37.png
+A138.png | alcremie-38.png
+A139.png | spectrier.png
+A140.png | appletun-gmax.png
+A140-2.png | flapple-gmax.png
+A141.png | rolycoly.png
+A142.png | darmanitan-galar-Zen.png
+A143.png | alcremie-39.png
+A144.png | alcremie-40.png
+A145.png | calyrex.png
+A146.png | sandaconda-gmax.png
+A147.png | carkol.png
+A148.png | alcremie-41.png
+A149.png | alcremie-42.png
+A150.png | calyrex-ice.png
+A151.png | toxtricity-gmax.png
+A152.png | rotom-drone.png
+A153.png | coalossal.png
+A154.png | alcremie-43.png
+A155.png | alcremie-44.png
+A156.png | calyrex-shadow.png
+A157.png | centiskorch-gmax.png
+A158.png | applin.png
+A159.png | alcremie-45.png
+A160.png | alcremie-46.png
+A161.png | scorbunny.png
+A162.png | meowth-galar.png
+A163.png | hatterene-gmax.png
+A164.png | flapple.png
+A165.png | alcremie-47.png
+A166.png | alcremie-48.png
+A167.png | ponyta-galarian.png
+A168.png | grimmsnarl-gmax.png
+A169.png | appletun.png
+A170.png | polteageist.png
+A171.png | alcremie-49.png
+A172.png | alcremie-50.png
+A173.png | rapidash-galarian.png
+A174.png | alcremie-gmax.png
+A175.png | silicobra.png
+A176.png | alcremie-51.png
+A177.png | alcremie-52.png
+A178.png | slowpoke-galarian.png
+A179.png | copperajah-gmax.png
+A180.png | alcremie-53.png
+A181.png | sandaconda.png
+A182.png | alcremie-54.png
+A183.png | alcremie-55.png
+A184.png | slowbro-galarian.png
+A185.png | duraludon-gmax.png
+A186.png | cramorant.png
+A187.png | alcremie-56.png
+A188.png | falinks.png
+A189.png | dracozolt.png
+A190.png | farfetch'd-galar.png
+A191.png | eternatus-other.png
+A192.png | cramorant-gulp.png
+A193.png | alcremie-57.png
+A194.png | pincurchin.png
+A195.png | weezing-galarian.png
+A196.png | urshifu-single-gmax.png
+A197.png | cramorant-pikagulp.png
+A198.png | yamask-galarian.png
+A199.png | alcremie-58.png
+A200.png | snom.png
+A201.png | mr. mime-galarian.png
+A202.png | urshifu-rapid-gmax.png
+A203.png | arrokuda.png
+A204.png | alcremie-59.png
+A205.png | frosmoth.png
+A206.png | articuno-galarian.png
+A207.png | pikachu-galar-male.png
+A208.png | rotom-dex-galar.png
+A209.png | barraskewda.png
+A210.png | alcremie-60.png
+A211.png | stonjourner.png
+A212.png | zapdos-galarian.png
+A213.png | pikachu-galar-female.png
+A214.png | toxel.png
+A215.png | alcremie-61.png
+A216.png | eiscue.png
+A217.png | raboot.png
+A218.png | moltres-galarian.png
+A219.png | pikachu-galar-hat.png
+A220.png | toxtricity-hype.png
+A221.png | alcremie-62.png
+A222.png | eiscue-melted.png
+A223.png | slowking-galarian
